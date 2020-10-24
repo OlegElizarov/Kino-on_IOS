@@ -7,33 +7,13 @@
 
 import UIKit
 
-// var counter:Int = 0
-
 class ViewController: UIViewController {
-
-//     @IBAction func onclick(_ sender: Any) {
-//         counter+=1
-//         text.text = String(counter)
-//     }
-
-//     @IBAction func onclicker(_ sender: Any){
-//         counter=0
-//         text.text = String(counter)
-//     }
-
-//     @IBOutlet weak var text: UITextView!
+    var collectionViewController: CollectionViewController!
     
-    
-//     @IBOutlet weak var firstButton:UIButton!
-//     @IBOutlet weak var ResButton: UIButton!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//         setup()
+        
+        collectionViewController = CollectionViewController()
+        view.addSubview(collectionViewController.view)
     }
-
-//     func setup() {
-//
-//     }
 }
