@@ -17,6 +17,7 @@ import UIKit
 class CollectionViewController: UIViewController {
     var movies: [Movie] = []
     var collectionNameLabel: UILabel!
+    var showMoreLabel: UILabel!
     var collectionScrollView: UIScrollView!
 
     override func viewDidLoad() {
@@ -39,6 +40,13 @@ class CollectionViewController: UIViewController {
         collectionNameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionNameLabel)
         
+        showMoreLabel = UILabel()
+        showMoreLabel.text = "ЕЩЕ"
+        showMoreLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        showMoreLabel.textColor = UIColor(red: 15/255, green: 76/255, blue: 129/255, alpha: 1)
+        showMoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(showMoreLabel)
+        
         collectionScrollView = UIScrollView()
         collectionScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionScrollView)
@@ -60,6 +68,17 @@ class CollectionViewController: UIViewController {
             movieImageView.translatesAutoresizingMaskIntoConstraints = false
             movieCardView.addSubview(movieImageView)
             
+            let ageLimitLabel = UILabel()
+            ageLimitLabel.text = "\(movie.ageLimit)+"
+            ageLimitLabel.font = UIFont.systemFont(ofSize: 11)
+            ageLimitLabel.textColor = .white
+            ageLimitLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+            ageLimitLabel.textAlignment = NSTextAlignment.center
+            ageLimitLabel.layer.cornerRadius = 4
+            ageLimitLabel.clipsToBounds = true
+            ageLimitLabel.translatesAutoresizingMaskIntoConstraints = false
+            movieCardView.addSubview(ageLimitLabel)
+            
             let movieNameLabel = UILabel()
             movieNameLabel.text = movie.name
             movieNameLabel.font = UIFont.systemFont(ofSize: 12)
@@ -71,6 +90,10 @@ class CollectionViewController: UIViewController {
             NSLayoutConstraint.activate([
                 movieImageView.topAnchor.constraint(equalTo: movieCardView.topAnchor),
                 movieImageView.centerYAnchor.constraint(equalTo: movieCardView.centerYAnchor),
+                ageLimitLabel.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -8),
+                ageLimitLabel.rightAnchor.constraint(equalTo: movieImageView.rightAnchor, constant: -8),
+                ageLimitLabel.widthAnchor.constraint(equalToConstant: 29),
+                ageLimitLabel.heightAnchor.constraint(equalToConstant: 16),
                 movieNameLabel.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 8),
                 movieNameLabel.leftAnchor.constraint(equalTo: movieCardView.leftAnchor),
                 movieNameLabel.widthAnchor.constraint(equalTo: movieCardView.widthAnchor, multiplier: 1)
@@ -95,8 +118,10 @@ class CollectionViewController: UIViewController {
         let scrollViewHeightConstraint = NSLayoutConstraint.init(item: collectionScrollView, attribute: .height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 255.0)
         
         NSLayoutConstraint.activate(
-            [collectionNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            [collectionNameLabel.topAnchor.constraint(equalTo: view.topAnchor),
              collectionNameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+             showMoreLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 7),
+             showMoreLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -17),
              collectionScrollView.topAnchor.constraint(equalTo: collectionNameLabel.bottomAnchor, constant: 13),
              collectionScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
              collectionScrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
