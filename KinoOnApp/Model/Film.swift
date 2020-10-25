@@ -1,9 +1,3 @@
-//
-//  Film.swift
-//  KinoOnApp
-//
-//  Created by Konstantin Pronin on 25.10.2020.
-//
 
 import Foundation
 
