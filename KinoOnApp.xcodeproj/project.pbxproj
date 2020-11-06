@@ -13,6 +13,10 @@
 		5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5155782544DEA800FDCF76 /* BannerItemView.swift */; };
 		5C51557D2544E04C00FDCF76 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51557C2544E04C00FDCF76 /* Film.swift */; };
 		5CE63FDF2555BEFA007981ED /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5CE63FDE2555BEFA007981ED /* .swiftlint.yml */; };
+		5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE63FE12555DECC007981ED /* TabBarController.swift */; };
+		5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE9011D2555FE3200B937EB /* ProfileViewController.swift */; };
+		5CE901212555FE8000B937EB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE901202555FE8000B937EB /* User.swift */; };
+		5CE901242555FF1100B937EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE901232555FF1100B937EB /* LoginView.swift */; };
 		72CF4A78252B3B35003C44BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72CF4A77252B3B35003C44BB /* Assets.xcassets */; };
 		72CF4A7B252B3B35003C44BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72CF4A79252B3B35003C44BB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -25,6 +29,10 @@
 		5C5155782544DEA800FDCF76 /* BannerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItemView.swift; sourceTree = "<group>"; };
 		5C51557C2544E04C00FDCF76 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		5CE63FDE2555BEFA007981ED /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		5CE63FE12555DECC007981ED /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		5CE9011D2555FE3200B937EB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		5CE901202555FE8000B937EB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5CE901232555FF1100B937EB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		72CF4A6B252B3B33003C44BB /* KinoOnApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinoOnApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72CF4A77252B3B35003C44BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72CF4A7A252B3B35003C44BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				5C5155782544DEA800FDCF76 /* BannerItemView.swift */,
+				5CE901232555FF1100B937EB /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -61,6 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				5C515512254371C000FDCF76 /* HomeViewController.swift */,
+				5CE63FE12555DECC007981ED /* TabBarController.swift */,
+				5CE9011D2555FE3200B937EB /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -77,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				5C51557C2544E04C00FDCF76 /* Film.swift */,
+				5CE901202555FE8000B937EB /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +227,10 @@
 				5C5155302544BED100FDCF76 /* SceneDelegate.swift in Sources */,
 				5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */,
 				5C515513254371C000FDCF76 /* HomeViewController.swift in Sources */,
+				5CE901242555FF1100B937EB /* LoginView.swift in Sources */,
+				5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */,
+				5CE901212555FE8000B937EB /* User.swift in Sources */,
+				5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */,
 				5C51552925448CE000FDCF76 /* AppDelegate.swift in Sources */,
 				5C51557D2544E04C00FDCF76 /* Film.swift in Sources */,
 			);

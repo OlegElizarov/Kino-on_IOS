@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 class HomeViewController: UIViewController {
+    //test
     private var items = [FilmBannerInfo(
                             title: "Острые козырьки",
                             description:
@@ -29,17 +30,19 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.navigationItem.title = "KINO|ON"
         
         setUpBannerView()
     }
     
     func setUpBannerView() {
         self.view.addSubview(bannerView)
-        
-        let navController = self.navigationController
-        let topInset = (navController?.view.safeAreaInsets.top ?? 0)
-            + (navController?.navigationBar.frame.height ?? 0)
+ 
+//        TODO
+//        let navController = self.navigationController
+//        let topInset = (navController?.view.safeAreaInsets.top ?? 0)
+//            + (navController?.navigationBar.frame.height ?? 0)
+//        let topInset = self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let topInset = UIApplication.shared.statusBarFrame.height
         
         bannerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         bannerView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true

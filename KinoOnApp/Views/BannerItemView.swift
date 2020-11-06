@@ -26,8 +26,6 @@ class BannerItemView: UICollectionViewCell {
         setUpBackgroundImage()
         setUpFilmDesc()
         setUpFilmTitle()
-        
-        print(self.backgroundImage.frame)
     }
     
     func setUpBackgroundImage() {
