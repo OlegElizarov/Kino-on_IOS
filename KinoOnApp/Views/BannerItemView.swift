@@ -1,9 +1,7 @@
 import Foundation
 import UIKit
 
-class BannerItemView: UIView {
-    let leftIndent = CGFloat(15)
-    let bottomIndent = CGFloat(-50)
+class BannerItemView: UICollectionViewCell {
     lazy private var backgroundImage: UIImageView = {
         return UIImageView(frame: .zero)
     }()
@@ -13,27 +11,29 @@ class BannerItemView: UIView {
     lazy private var filmDescription: UILabel = {
         return UILabel()
     }()
-    
-    //test
-    private var info: FilmBannerInfo!
+    lazy private var info: FilmBannerInfo = {
+        return FilmBannerInfo(title: "", description: "", img: "")
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        info = FilmBannerInfo(title: "Острые козырьки", description: "Криминальная сага в стиле ретро о банде и ее лютом боссе. Так популярна, что повысила продажи головных уборов.", img: "test_banner_img")
     }
     
-    func setUp() {
+    func setUp(info: FilmBannerInfo) {
+        self.info = info
+        self.layoutIfNeeded()
+        
         setUpBackgroundImage()
-        setUpFilmTitle()
         setUpFilmDesc()
+        setUpFilmTitle()
+        
+        print(self.backgroundImage.frame)
     }
     
     func setUpBackgroundImage() {
         self.addSubview(backgroundImage)
         
         backgroundImage.image = UIImage(named: info.img)
-        
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         
@@ -41,21 +41,8 @@ class BannerItemView: UIView {
         backgroundImage.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         backgroundImage.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         backgroundImage.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-    }
-    
-    func setUpFilmTitle() {
-        self.addSubview(filmTitle)
         
-        filmTitle.text = info.title
-        filmTitle.font = UIFont.systemFont(ofSize: 24)
-        filmTitle.textColor = UIColor.white
-        filmTitle.adjustsFontSizeToFitWidth = false
-        filmTitle.translatesAutoresizingMaskIntoConstraints = false
-        
-        filmTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: leftIndent).isActive = true
-        filmTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        filmTitle.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: bottomIndent * 3).isActive = true
-        filmTitle.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2).isActive = true
+        backgroundImage.layoutIfNeeded()
     }
     
     func setUpFilmDesc() {
@@ -69,10 +56,33 @@ class BannerItemView: UIView {
         filmDescription.numberOfLines = 4
         filmDescription.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        filmDescription.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: leftIndent * 1.2).isActive = true
-        filmDescription.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8).isActive = true
-        filmDescription.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: bottomIndent * 2).isActive = true
+        filmDescription.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+                                                 constant: 10).isActive = true
+        filmDescription.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+                                                  constant: 10).isActive = true
+        filmDescription.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
         filmDescription.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2).isActive = true
+        
+        filmDescription.layoutIfNeeded()
+    }
+    
+    func setUpFilmTitle() {
+        self.addSubview(filmTitle)
+        
+        filmTitle.text = info.title
+        filmTitle.font = UIFont.systemFont(ofSize: 24)
+        filmTitle.textColor = UIColor.white
+        filmTitle.adjustsFontSizeToFitWidth = false
+        filmTitle.translatesAutoresizingMaskIntoConstraints = false
+        
+        filmTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+                                           constant: 10).isActive = true
+        filmTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+                                            constant: 10).isActive = true
+        filmTitle.bottomAnchor.constraint(equalTo: self.filmDescription.topAnchor).isActive = true
+        filmTitle.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
+        
+        filmTitle.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
