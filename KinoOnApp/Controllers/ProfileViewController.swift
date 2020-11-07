@@ -9,7 +9,6 @@ class ProfileViewController: UIViewController {
     var loginButton: LoginButton!
     var profileLabel: ProfileLable!
     var hello: UILabel!
-    var toggleButton: ToggleButton!
     var isChecked = false
     
     override func viewDidLoad() {
@@ -17,7 +16,6 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = .white
         
         configureLabel()
-        configureToggle()
         configureInputs()
         configureLoginButton()
         configureMessageLabel()
@@ -55,44 +53,32 @@ class ProfileViewController: UIViewController {
         profileLabel = ProfileLable(text: "Аккаунт")
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.profileLabel!)
-        NSLayoutConstraint.activate([
-            profileLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
-            profileLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            profileLabel.widthAnchor.constraint(equalToConstant: 360),
-            profileLabel.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        
+        profileLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        profileLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        profileLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        profileLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     private func configureInputs() {
         loginField = InputField(text: "Логин")
         view.addSubview(self.loginField!)
         
-        passwordField = InputField(text: "Пароль", rightButton: toggleButton)
+        passwordField = InputField(text: "Пароль", typeRightButton: .authorize)
         view.addSubview(self.passwordField!)
         
         loginField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            loginField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            loginField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            loginField.widthAnchor.constraint(equalToConstant: 360),
-            loginField.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            passwordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
-            passwordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            passwordField.widthAnchor.constraint(equalToConstant: 360),
-            passwordField.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
-    private func configureToggle() {
-        toggleButton  = ToggleButton(title: "X")
-        toggleButton.addTarget(self, action: #selector(toggle), for: .touchUpInside)
-        toggleButton.translatesAutoresizingMaskIntoConstraints=false
-        NSLayoutConstraint.activate([
-            toggleButton.widthAnchor.constraint(equalToConstant: 30),
-            toggleButton.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        
+        loginField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        loginField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        loginField.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        loginField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        passwordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 160).isActive = true
+        passwordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        passwordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
     }
     
     private func configureLoginButton() {
@@ -100,12 +86,11 @@ class ProfileViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(loginButtonAction), for: .touchUpInside)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton!)
-        NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 240),
-            loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            loginButton.widthAnchor.constraint(equalToConstant: 360),
-            loginButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        
+        loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 240).isActive = true
+        loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        loginButton.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        loginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     private func configureMessageLabel() {
@@ -113,11 +98,9 @@ class ProfileViewController: UIViewController {
         hello.translatesAutoresizingMaskIntoConstraints = false
 
         self.view.addSubview(hello)
-        NSLayoutConstraint.activate([
-            hello.topAnchor.constraint(equalTo: view.topAnchor, constant: 300),
-            hello.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            hello.widthAnchor.constraint(equalToConstant: 360),
-            hello.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        hello.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
+        hello.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        hello.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        hello.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }
