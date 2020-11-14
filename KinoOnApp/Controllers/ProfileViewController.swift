@@ -6,8 +6,12 @@ class ProfileViewController: UIViewController {
     
     var loginField: InputField!
     var passwordField: InputField!
+    var repPasswordField: InputField!
     var loginButton: LoginButton!
     var profileLabel: ProfileLable!
+    var loginLabel: PageTypeLable!
+    var signUpLabel: PageTypeLable!
+    var logTop: NSLayoutConstraint!
     var hello: UILabel!
     var isChecked = false
     
@@ -19,6 +23,7 @@ class ProfileViewController: UIViewController {
         configureInputs()
         configureLoginButton()
         configureMessageLabel()
+        configureTypePage()
         
         setup()
     }
@@ -39,15 +44,63 @@ class ProfileViewController: UIViewController {
     
     @objc
     func loginButtonAction(sender: UIButton!) {
+        if (passwordField.text != repPasswordField.text) && (repPasswordField.isHidden == false) {
+            hello.text = "Passwords do not match!"
+            return
+        }
         if (loginField.text == testUser.email) && (passwordField.text == testUser.password) {
             hello.text = "Hello , \(testUser.username)!"
         } else {
             hello.text = "Wrong params!"
         }
     }
+    
+    func setup() {
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeft))
+        swipeLeft.direction = .left
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeRight))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        self.view.addGestureRecognizer(swipeLeft)
+        
+    }
+    
+    @objc
+    func swipeLeft(sender: UIButton!) {
+        loginLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
+        signUpLabel.textColor = .none
+        loginButton.setTitle("ВОЙТИ", for: .normal)
+        repPasswordField.isHidden = true
+        self.view.layoutIfNeeded()
 
-     func setup() {
-     }
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        logTop.isActive = true
+
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveLinear, .allowUserInteraction], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        print("left")
+    }
+    
+    @objc
+    func swipeRight(sender: UIButton!) {
+        loginLabel.textColor = .none
+        signUpLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
+        loginButton.setTitle("СОЗДАТЬ АККАУНТ", for: .normal)
+        repPasswordField.isHidden = false
+        self.view.layoutIfNeeded()
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        logTop.isActive = false
+        loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 300).isActive = true
+        
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveLinear, .allowUserInteraction], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        print("right")
+    }
     
     private func configureLabel() {
         profileLabel = ProfileLable(text: "Аккаунт")
@@ -69,25 +122,46 @@ class ProfileViewController: UIViewController {
         loginField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
-        loginField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        loginField.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
         loginField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         loginField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         loginField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        self.view.layoutIfNeeded()
+//        loginField.createBorder()
         
-        passwordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 160).isActive = true
+        passwordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 190).isActive = true
         passwordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         passwordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        self.view.layoutIfNeeded()
+//        passwordField.createBorder()
+        
+        repPasswordField = InputField(text: "Повторите пароль", typeRightButton: .authorize)
+        view.addSubview(self.repPasswordField!)
+        repPasswordField.translatesAutoresizingMaskIntoConstraints = false
+        
+        repPasswordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 250).isActive = true
+        repPasswordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        repPasswordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        repPasswordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        repPasswordField.isHidden = true
+        
+//        self.view.layoutIfNeeded()
+//        loginField.createBorder()
+//        passwordField.createBorder()
+//        repPasswordField.createBorder()
         
     }
     
     private func configureLoginButton() {
-        loginButton = LoginButton(text: "Войти")
+        loginButton = LoginButton(text: "ВОЙТИ")
         loginButton.addTarget(self, action: #selector(loginButtonAction), for: .touchUpInside)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton!)
         
-        loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 240).isActive = true
+        logTop = loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 270)
+        logTop.isActive = true
         loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         loginButton.widthAnchor.constraint(equalToConstant: 360).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -96,11 +170,33 @@ class ProfileViewController: UIViewController {
     private func configureMessageLabel() {
         hello = UILabel()
         hello.translatesAutoresizingMaskIntoConstraints = false
-
+        
         self.view.addSubview(hello)
-        hello.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
+        hello.topAnchor.constraint(equalTo: view.topAnchor, constant: 330).isActive = true
         hello.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         hello.widthAnchor.constraint(equalToConstant: 360).isActive = true
         hello.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    private func configureTypePage() {
+        loginLabel = PageTypeLable(text: "Войти")
+        signUpLabel = PageTypeLable(text: "Создать Аккаунт")
+        loginLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
+        
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(self.loginLabel!)
+        view.addSubview(self.signUpLabel!)
+        
+        loginLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
+        loginLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
+        loginLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        loginLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        signUpLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
+        signUpLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 187).isActive = true
+        signUpLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        signUpLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }
