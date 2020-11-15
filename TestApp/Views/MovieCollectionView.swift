@@ -57,8 +57,7 @@ class MovieCollectionView: UICollectionViewCell {
     }
     
     func setupMovieCollection() {
-        addSubview(moviesCollectionView)
-        moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(moviesCollectionView)
         
         NSLayoutConstraint.activate([
             moviesCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 42),

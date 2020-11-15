@@ -57,8 +57,8 @@ class ViewController: UIViewController {
             
             NSLayoutConstraint.activate([
                 movieCollection.topAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-                movieCollection.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-                movieCollection.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+                movieCollection.leftAnchor.constraint(equalTo: view.leftAnchor),
+                movieCollection.rightAnchor.constraint(equalTo: view.rightAnchor),
                 movieCollection.heightAnchor.constraint(equalToConstant: 297)
             ])
             
