@@ -26,60 +26,47 @@ class ViewController: UIViewController {
         )
     ]
     
-    lazy private var movieCollectionsView: UICollectionView = {
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-        
-        collection.delegate = self
-        collection.dataSource = self
-        
-        collection.register(MovieCollectionView.self, forCellWithReuseIdentifier: "MovieCollection")
-        
-        collection.backgroundColor = .white
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
+    private let scrollView = UIScrollView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
         setupMovieCollections()
     }
     
     func setupMovieCollections() {
-        view.addSubview(movieCollectionsView)
+        var leadingAnchor = scrollView.topAnchor
         
-        NSLayoutConstraint.activate([
-            movieCollectionsView.topAnchor.constraint(equalTo: view.topAnchor),
-            movieCollectionsView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            movieCollectionsView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            movieCollectionsView.heightAnchor.constraint(equalToConstant: view.bounds.height)
-        ])
-        
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: view.bounds.width, height: 297)
-        movieCollectionsView.setCollectionViewLayout(layout, animated: false)
+        for i in 0..<self.movieCollectionsData.count {
+            let movieCollection = MovieCollectionView(data: self.movieCollectionsData[i])
+            
+            scrollView.addSubview(movieCollection)
+            movieCollection.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                movieCollection.topAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+                movieCollection.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+                movieCollection.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+                movieCollection.heightAnchor.constraint(equalToConstant: 297)
+            ])
+            
+            leadingAnchor = movieCollection.bottomAnchor
+            
+            if i == self.movieCollectionsData.count - 1 {
+                movieCollection.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+            }
+        }
     }
  }
-
-extension ViewController: UICollectionViewDelegate {
-    
-}
-
-extension ViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.movieCollectionsData.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollection", for: indexPath) as? MovieCollectionView else {
-            return UICollectionViewCell()
-        }
-        
-        cell.fillCell(model: self.movieCollectionsData[indexPath.item])
-        return cell
-    }
-}

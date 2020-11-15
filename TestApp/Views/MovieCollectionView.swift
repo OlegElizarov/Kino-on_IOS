@@ -1,3 +1,4 @@
+import Foundation
 import UIKit
 
 class MovieCollectionView: UICollectionViewCell {
@@ -19,10 +20,15 @@ class MovieCollectionView: UICollectionViewCell {
         return collection
     }()
     
-    func fillCell(model: MovieCollection) {
-        collection = model
+    init(data: MovieCollection) {
+        super.init(frame: .zero)
+        collection = data
         setupHeader()
         setupMovieCollection()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupHeader() {
@@ -52,6 +58,7 @@ class MovieCollectionView: UICollectionViewCell {
     
     func setupMovieCollection() {
         addSubview(moviesCollectionView)
+        moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             moviesCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 42),
