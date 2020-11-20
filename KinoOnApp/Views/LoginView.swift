@@ -1,5 +1,10 @@
 import UIKit
 
+enum StateProfileController {
+    case login
+    case signup
+}
+
 class ProfileLable: UILabel {
     init(text: String) {
         super.init(frame: .zero)
@@ -109,12 +114,7 @@ class InputField: UITextField {
     func createBorder() {
 //        let border = CALayer()
         let width = CGFloat(2.0)
-        print(self.constraints)
-        print(self.frame)
-        
         border.borderColor = UIColor.systemGray5.cgColor
-//        border.frame = CGRect(x: 0, y: self.frame.size.height-width,
-//                              width: self.frame.size.width, height: self.frame.size.height)
         border.borderWidth = width
         self.layer.addSublayer(border)
         self.layer.masksToBounds = true
@@ -128,8 +128,6 @@ class InputField: UITextField {
     override func layoutSubviews() {
         super.layoutSubviews()
         let width = CGFloat(2.0)
-        print(self.frame)
-
         border.frame = CGRect(x: 0, y: self.frame.size.height-width,
                               width: self.frame.size.width, height: self.frame.size.height)
         

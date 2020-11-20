@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController {
     var signUpLabel: PageTypeLable!
     var logTop: NSLayoutConstraint!
     var hello: UILabel!
+    var state:StateProfileController = .login
     var isChecked = false
     
     override func viewDidLoad() {
@@ -44,14 +45,27 @@ class ProfileViewController: UIViewController {
     
     @objc
     func loginButtonAction(sender: UIButton!) {
-        if (passwordField.text != repPasswordField.text) && (repPasswordField.isHidden == false) {
-            hello.text = "Passwords do not match!"
+        switch state {
+        case .login:
+            if (loginField.text == testUser.email) && (passwordField.text == testUser.password) {
+                hello.text = "Hello , \(testUser.username)!"
+            } else {
+                hello.text = "Wrong params!"
+            }
             return
-        }
-        if (loginField.text == testUser.email) && (passwordField.text == testUser.password) {
-            hello.text = "Hello , \(testUser.username)!"
-        } else {
-            hello.text = "Wrong params!"
+            
+        case .signup:
+            if passwordField.text != repPasswordField.text {
+                hello.text = "Passwords do not match!"
+                return
+            }
+            if loginField.text == testUser.email {
+                hello.text = "User alredy exists"
+            } else {
+                hello.text = "Meet our new friend => mister\(loginField.text!) !"
+            }
+            return
+
         }
     }
     
@@ -62,7 +76,6 @@ class ProfileViewController: UIViewController {
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
         self.view.addGestureRecognizer(swipeLeft)
-        
     }
     
     @objc
@@ -71,6 +84,7 @@ class ProfileViewController: UIViewController {
         signUpLabel.textColor = .none
         loginButton.setTitle("ВОЙТИ", for: .normal)
         repPasswordField.isHidden = true
+        state = .login
         self.view.layoutIfNeeded()
 
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -81,6 +95,7 @@ class ProfileViewController: UIViewController {
         }, completion: nil)
         
         print("left")
+        print(state)
     }
     
     @objc
@@ -89,6 +104,7 @@ class ProfileViewController: UIViewController {
         signUpLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
         loginButton.setTitle("СОЗДАТЬ АККАУНТ", for: .normal)
         repPasswordField.isHidden = false
+        state = .signup
         self.view.layoutIfNeeded()
         
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -100,6 +116,7 @@ class ProfileViewController: UIViewController {
         }, completion: nil)
         
         print("right")
+        print(state)
     }
     
     private func configureLabel() {
@@ -126,16 +143,12 @@ class ProfileViewController: UIViewController {
         loginField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         loginField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         loginField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        self.view.layoutIfNeeded()
-//        loginField.createBorder()
         
         passwordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 190).isActive = true
         passwordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         passwordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        self.view.layoutIfNeeded()
-//        passwordField.createBorder()
-        
+
         repPasswordField = InputField(text: "Повторите пароль", typeRightButton: .authorize)
         view.addSubview(self.repPasswordField!)
         repPasswordField.translatesAutoresizingMaskIntoConstraints = false
@@ -146,11 +159,6 @@ class ProfileViewController: UIViewController {
         repPasswordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         repPasswordField.isHidden = true
-        
-//        self.view.layoutIfNeeded()
-//        loginField.createBorder()
-//        passwordField.createBorder()
-//        repPasswordField.createBorder()
         
     }
     
