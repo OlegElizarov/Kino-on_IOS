@@ -1,8 +1,13 @@
 import Foundation
 import UIKit
 
+struct HomeViewControllerConstants {
+    static let bannerHeightMultiplier = CGFloat(0.3)
+    static let movieCollectionIndent = CGFloat(30)
+    static let movieCollectionHeight = CGFloat(297)
+}
+
 class HomeViewController: UIViewController {
-    //test
     private var items = [FilmBannerInfo(
                             title: "Острые козырьки",
                             description:
@@ -37,7 +42,7 @@ class HomeViewController: UIViewController {
         )
     ]
     
-    private let scrollView = UIScrollView()
+    private let scrollView = UIScrollView(frame: .zero)
     
     lazy private var bannerView: UICollectionView = {
         let collView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -58,13 +63,13 @@ class HomeViewController: UIViewController {
         
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        scrollView.layoutIfNeeded()
         
         setUpBannerView()
         setupMovieCollections()
@@ -72,25 +77,21 @@ class HomeViewController: UIViewController {
     
     func setUpBannerView() {
         scrollView.addSubview(bannerView)
- 
-//        TODO
-//        let navController = self.navigationController
-//        let topInset = (navController?.view.safeAreaInsets.top ?? 0)
-//            + (navController?.navigationBar.frame.height ?? 0)
-//        let topInset = self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        let topInset = UIApplication.shared.statusBarFrame.height
         
-        bannerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        bannerView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        bannerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: topInset).isActive = true
-        bannerView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.3).isActive = true
+        bannerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        bannerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        bannerView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        bannerView.heightAnchor.constraint(
+            equalTo: scrollView.heightAnchor,
+            multiplier: HomeViewControllerConstants.bannerHeightMultiplier).isActive = true
         bannerView.layoutIfNeeded()
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = bannerView.bounds.size
-        
         bannerView.setCollectionViewLayout(layout, animated: false)
+        
+        scrollView.contentSize = CGSize(width: bannerView.bounds.width, height: bannerView.bounds.height)
     }
     
     func setupMovieCollections() {
@@ -104,17 +105,20 @@ class HomeViewController: UIViewController {
             movieCollection.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                movieCollection.topAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+                movieCollection.topAnchor.constraint(
+                    equalTo: leadingAnchor,
+                    constant: HomeViewControllerConstants.movieCollectionIndent),
                 movieCollection.leftAnchor.constraint(equalTo: view.leftAnchor),
                 movieCollection.rightAnchor.constraint(equalTo: view.rightAnchor),
-                movieCollection.heightAnchor.constraint(equalToConstant: 297)
+                movieCollection.heightAnchor.constraint(
+                    equalToConstant:HomeViewControllerConstants.movieCollectionHeight)
             ])
             
             leadingAnchor = movieCollection.bottomAnchor
             
-            if i == self.movieCollectionsData.count - 1 {
-                movieCollection.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-            }
+            scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
+                                            height: scrollView.contentSize.height
+                                                    + HomeViewControllerConstants.movieCollectionHeight)
         }
     }
 }

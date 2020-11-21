@@ -19,12 +19,10 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         self.navigationItem.title = "KINO|ON"
         
-        let homeTab = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        let homeTab = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         self.homeController.tabBarItem = homeTab
-//        let homeTab = UITabBarItem(title: "Home", image: UIImage(named: "home_button"), tag: 0)
-//        self.homeController.tabBarItem = homeTab
         
-        let profileTab = UITabBarItem(tabBarSystemItem: .contacts, tag: 1)
+        let profileTab = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         self.profileController.tabBarItem = profileTab
         
         viewControllers = [homeController, profileController]

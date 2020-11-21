@@ -1,15 +1,21 @@
 import Foundation
 import UIKit
 
+struct BannerItemViewConstants {
+    static let sideIndent = CGFloat(10)
+    static let descFontSize = CGFloat(12)
+    static let titleFontSize = CGFloat(24)
+    static let descLines = 4
+    static let descBottomIndent = CGFloat(-20)
+    static let descHeightMultiplier = CGFloat(0.2)
+    static let titleHeightMutliplier = CGFloat(0.1)
+}
+
 class BannerItemView: UICollectionViewCell {
+    private var filmTitle = UILabel()
+    private var filmDescription =  UILabel()
     lazy private var backgroundImage: UIImageView = {
         return UIImageView(frame: .zero)
-    }()
-    lazy private var filmTitle: UILabel = {
-        return UILabel()
-    }()
-    lazy private var filmDescription: UILabel = {
-        return UILabel()
     }()
     lazy private var info: FilmBannerInfo = {
         return FilmBannerInfo(title: "", description: "", img: "")
@@ -47,19 +53,25 @@ class BannerItemView: UICollectionViewCell {
         self.addSubview(filmDescription)
         
         filmDescription.text = info.description
-        filmDescription.font = UIFont.systemFont(ofSize: 12)
+        filmDescription.font = UIFont.systemFont(ofSize: BannerItemViewConstants.descFontSize)
         filmDescription.textColor = UIColor.white
         filmDescription.adjustsFontSizeToFitWidth = false
         filmDescription.translatesAutoresizingMaskIntoConstraints = false
-        filmDescription.numberOfLines = 4
+        filmDescription.numberOfLines = BannerItemViewConstants.descLines
         filmDescription.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        filmDescription.leadingAnchor.constraint(equalTo: self.leadingAnchor,
-                                                 constant: 10).isActive = true
-        filmDescription.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                                  constant: 10).isActive = true
-        filmDescription.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
-        filmDescription.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2).isActive = true
+        filmDescription.leadingAnchor.constraint(
+            equalTo: self.leadingAnchor,
+            constant: BannerItemViewConstants.sideIndent).isActive = true
+        filmDescription.trailingAnchor.constraint(
+            equalTo: self.trailingAnchor,
+            constant: BannerItemViewConstants.sideIndent).isActive = true
+        filmDescription.bottomAnchor.constraint(
+            equalTo: self.bottomAnchor,
+            constant: BannerItemViewConstants.descBottomIndent).isActive = true
+        filmDescription.heightAnchor.constraint(
+            equalTo: self.heightAnchor,
+            multiplier: BannerItemViewConstants.descHeightMultiplier).isActive = true
         
         filmDescription.layoutIfNeeded()
     }
@@ -68,17 +80,22 @@ class BannerItemView: UICollectionViewCell {
         self.addSubview(filmTitle)
         
         filmTitle.text = info.title
-        filmTitle.font = UIFont.systemFont(ofSize: 24)
+        filmTitle.font = UIFont.systemFont(ofSize: BannerItemViewConstants.titleFontSize)
         filmTitle.textColor = UIColor.white
         filmTitle.adjustsFontSizeToFitWidth = false
         filmTitle.translatesAutoresizingMaskIntoConstraints = false
         
-        filmTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor,
-                                           constant: 10).isActive = true
-        filmTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                            constant: 10).isActive = true
-        filmTitle.bottomAnchor.constraint(equalTo: self.filmDescription.topAnchor).isActive = true
-        filmTitle.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
+        filmTitle.leadingAnchor.constraint(
+            equalTo: self.leadingAnchor,
+            constant: BannerItemViewConstants.sideIndent).isActive = true
+        filmTitle.trailingAnchor.constraint(
+            equalTo: self.trailingAnchor,
+            constant: BannerItemViewConstants.sideIndent).isActive = true
+        filmTitle.bottomAnchor.constraint(
+            equalTo: self.filmDescription.topAnchor).isActive = true
+        filmTitle.heightAnchor.constraint(
+            equalTo: self.heightAnchor,
+            multiplier: BannerItemViewConstants.titleHeightMutliplier).isActive = true
         
         filmTitle.layoutIfNeeded()
     }
