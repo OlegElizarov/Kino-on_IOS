@@ -20,9 +20,9 @@ class MovieCollectionView: UICollectionViewCell {
         return collection
     }()
     
-    init(data: MovieCollection) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
-        collection = data
+        
         setupHeader()
         setupMovieCollection()
     }
@@ -31,8 +31,12 @@ class MovieCollectionView: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func fill(data: MovieCollection) {
+        collection = data
+        collectionNameLabel.text = collection.name
+    }
+    
     func setupHeader() {
-        collectionNameLabel.text = self.collection.name
         collectionNameLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         
         collectionNameLabel.translatesAutoresizingMaskIntoConstraints = false

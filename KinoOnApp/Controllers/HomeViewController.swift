@@ -97,7 +97,8 @@ class HomeViewController: UIViewController {
         var leadingAnchor = bannerView.bottomAnchor
         
         for i in 0..<self.movieCollectionsData.count {
-            let movieCollection = MovieCollectionView(data: self.movieCollectionsData[i])
+            let movieCollection = MovieCollectionView(frame: .zero)
+            movieCollection.fill(data: self.movieCollectionsData[i])
             
             scrollView.addSubview(movieCollection)
             movieCollection.translatesAutoresizingMaskIntoConstraints = false

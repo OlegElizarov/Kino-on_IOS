@@ -8,18 +8,26 @@ class MovieCardView: UICollectionViewCell {
     private let ageLimitLabel = UILabel()
     private let movieNameLabel = UILabel()
     
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        
+        setupMovieImage()
+        setupAgeLimit()
+        setupMovieName()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func fillCell(model: MovieCard) {
         id = model.id
-        setupMovieImage(image: model.image)
-        setupAgeLimit(ageLimit: model.ageLimit)
-        setupMovieName(name: model.name)
+        movieImageView.image = UIImage(named: model.image)
+        ageLimitLabel.text = "\(model.ageLimit)+"
+        movieNameLabel.text = model.name
     }
     
-    func setupMovieImage(image: String) {
-        let movieImage = UIImage(named: image)
-        let movieImageView = UIImageView(image: movieImage)
-        
+    func setupMovieImage() {
         movieImageView.layer.cornerRadius = 16
         movieImageView.clipsToBounds = true
         
@@ -30,13 +38,11 @@ class MovieCardView: UICollectionViewCell {
             movieImageView.topAnchor.constraint(equalTo: self.topAnchor),
             movieImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
             movieImageView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            movieImageView.heightAnchor.constraint(equalToConstant: 226)
+            movieImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -28)
         ])
     }
     
-    func setupAgeLimit(ageLimit: Int) {
-        ageLimitLabel.text = "\(ageLimit)+"
-        
+    func setupAgeLimit() {
         ageLimitLabel.font = UIFont.systemFont(ofSize: 11)
         ageLimitLabel.textColor = .white
         ageLimitLabel.textAlignment = NSTextAlignment.center
@@ -57,9 +63,7 @@ class MovieCardView: UICollectionViewCell {
         ])
     }
     
-    func setupMovieName(name: String) {
-        movieNameLabel.text = name
-        
+    func setupMovieName() {
         movieNameLabel.font = UIFont.systemFont(ofSize: 12)
         movieNameLabel.adjustsFontSizeToFitWidth = false
         movieNameLabel.lineBreakMode = .byTruncatingTail
