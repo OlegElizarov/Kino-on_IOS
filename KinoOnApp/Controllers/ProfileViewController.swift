@@ -14,8 +14,23 @@ class ProfileViewController: UIViewController {
     private var logTopPass: NSLayoutConstraint!
     private var logTopRep: NSLayoutConstraint!
     private var hello: UILabel!
-    private var state:StateProfileController = .login
+    private var state: StateProfileController = .login
     private var isChecked = false
+    
+//    var segm: UISegmentedControl!
+//    private var ofs1: NSLayoutConstraint!
+//    private var ofs2: NSLayoutConstraint!
+//    private var ofs3: NSLayoutConstraint!
+//
+//    let segmentindicator: UIView = {
+//
+//        let vie = UIView()
+//
+//        vie.translatesAutoresizingMaskIntoConstraints = false
+//        vie.backgroundColor = UIColor.yellow
+//
+//        return vie
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,15 +175,16 @@ class ProfileViewController: UIViewController {
         view.addSubview(self.loginLabel!)
         view.addSubview(self.signUpLabel!)
         
+        [loginLabel, signUpLabel].forEach {
+            $0?.widthAnchor.constraint(equalToConstant: 360).isActive = true
+            $0?.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        }
+        
         loginLabel.topAnchor.constraint(equalTo: profileLabel.topAnchor, constant: 60).isActive = true
         loginLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
-        loginLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        loginLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         signUpLabel.topAnchor.constraint(equalTo: loginLabel.topAnchor).isActive = true
         signUpLabel.leftAnchor.constraint(equalTo: loginLabel.leftAnchor, constant: 127).isActive = true
-        signUpLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        signUpLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     private func configureInputs() {
@@ -184,20 +200,19 @@ class ProfileViewController: UIViewController {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         repPasswordField.translatesAutoresizingMaskIntoConstraints = false
         
+        [loginField, passwordField, repPasswordField].forEach {
+            $0?.widthAnchor.constraint(equalToConstant: 360).isActive = true
+            $0?.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        }
+        
         loginField.topAnchor.constraint(equalTo: loginLabel.topAnchor, constant: 60).isActive = true
         loginField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        loginField.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        loginField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         passwordField.topAnchor.constraint(equalTo: loginField.topAnchor, constant: 60).isActive = true
         passwordField.leftAnchor.constraint(equalTo: loginField.leftAnchor).isActive = true
-        passwordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
                 
         repPasswordField.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 60).isActive = true
         repPasswordField.leftAnchor.constraint(equalTo: passwordField.leftAnchor).isActive = true
-        repPasswordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        repPasswordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         repPasswordField.isHidden = true
         
@@ -228,5 +243,67 @@ class ProfileViewController: UIViewController {
         hello.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
         hello.widthAnchor.constraint(equalToConstant: 360).isActive = true
         hello.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+//        segm = UISegmentedControl(items: ["One", "Two", "Three"])
+//        segm.selectedSegmentIndex = 0
+//        segm.translatesAutoresizingMaskIntoConstraints = false
+//        segm.backgroundColor = .clear
+//        segm.tintColor = .clear
+//        segm.setTitleTextAttributes([NSAttributedString.Key.font:
+//                                        UIFont(name: "AvenirNextCondensed-Medium",
+//                                               size: 20)!,
+//                                     NSAttributedString.Key.foregroundColor:
+//                                        UIColor.lightGray], for: .normal)
+//        segm.setTitleTextAttributes([NSAttributedString.Key.font:
+//                                        UIFont(name: "AvenirNextCondensed-Medium",
+//                                               size: 24)!,
+//                                     NSAttributedString.Key.foregroundColor:
+//                                        #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)], for: .selected)
+//
+//        self.view.addSubview(segm)
+//        segm.topAnchor.constraint(equalTo: loginButton.topAnchor, constant: 80).isActive = true
+//        segm.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
+//        segm.widthAnchor.constraint(equalToConstant: 360).isActive = true
+//        segm.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        segm.addTarget(self, action: #selector(indexChanged), for: .valueChanged)
+//
+//        self.view.addSubview(segmentindicator)
+//        segmentindicator.topAnchor.constraint(equalTo: segm.bottomAnchor, constant: 2).isActive = true
+//        ofs1 = segmentindicator.leftAnchor.constraint(equalTo: segm.leftAnchor, constant: 10)
+//        ofs1.isActive = true
+//        ofs2 = segmentindicator.leftAnchor.constraint(equalTo: segm.leftAnchor, constant: 130)
+//        ofs2.isActive = false
+//        ofs3 = segmentindicator.leftAnchor.constraint(equalTo: segm.leftAnchor, constant: 250)
+//        ofs3.isActive = false
+//
+//        segmentindicator.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        segmentindicator.heightAnchor.constraint(equalToConstant: 2).isActive = true
+//
     }
+    
+//    @objc
+//    func indexChanged(_ sender: UISegmentedControl) {
+//        let numberOfSegments = CGFloat(segm.numberOfSegments)
+//        let selectedIndex = CGFloat(sender.selectedSegmentIndex)
+//        switch selectedIndex {
+//        case 0:
+//            ofs2.isActive = false
+//            ofs3.isActive = false
+//            ofs1.isActive = true
+//        case 1:
+//            ofs1.isActive = false
+//            ofs3.isActive = false
+//            ofs2.isActive = true
+//        case 2:
+//            ofs1.isActive = false
+//            ofs2.isActive = false
+//            ofs3.isActive = true
+//        default: break
+//        }
+//
+//        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveLinear, .allowUserInteraction], animations: {
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
+//    }
+
 }
