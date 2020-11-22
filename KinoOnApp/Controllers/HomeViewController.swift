@@ -72,7 +72,19 @@ class HomeViewController: UIViewController {
         scrollView.layoutIfNeeded()
         
         setUpBannerView()
-        setupMovieCollections()
+        
+        MovieCollectionRepository().getHomePageCollection {(result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let collection):
+                    self.movieCollectionsData.append(contentsOf: collection)
+                case .failure(let error):
+                    print(error)
+                }
+                
+                self.setupMovieCollections()
+            }
+        }
     }
     
     func setUpBannerView() {
@@ -111,7 +123,7 @@ class HomeViewController: UIViewController {
                 movieCollection.leftAnchor.constraint(equalTo: view.leftAnchor),
                 movieCollection.rightAnchor.constraint(equalTo: view.rightAnchor),
                 movieCollection.heightAnchor.constraint(
-                    equalToConstant:HomeViewControllerConstants.movieCollectionHeight)
+                    equalToConstant: HomeViewControllerConstants.movieCollectionHeight)
             ])
             
             leadingAnchor = movieCollection.bottomAnchor

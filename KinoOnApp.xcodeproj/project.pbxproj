@@ -12,6 +12,7 @@
 		5C5155302544BED100FDCF76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51552F2544BED100FDCF76 /* SceneDelegate.swift */; };
 		5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5155782544DEA800FDCF76 /* BannerItemView.swift */; };
 		5C51557D2544E04C00FDCF76 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51557C2544E04C00FDCF76 /* Film.swift */; };
+		5CD5813B256AF0B100066A8C /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD5813A256AF0B100066A8C /* MovieRepository.swift */; };
 		5CE63FDF2555BEFA007981ED /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5CE63FDE2555BEFA007981ED /* .swiftlint.yml */; };
 		5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE63FE12555DECC007981ED /* TabBarController.swift */; };
 		5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE9011D2555FE3200B937EB /* ProfileViewController.swift */; };
@@ -37,6 +38,7 @@
 		5C51552F2544BED100FDCF76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5C5155782544DEA800FDCF76 /* BannerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItemView.swift; sourceTree = "<group>"; };
 		5C51557C2544E04C00FDCF76 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		5CD5813A256AF0B100066A8C /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
 		5CE63FDE2555BEFA007981ED /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5CE63FE12555DECC007981ED /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5CE9011D2555FE3200B937EB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		5CD58139256AF08600066A8C /* network */ = {
+			isa = PBXGroup;
+			children = (
+				5CD5813A256AF0B100066A8C /* MovieRepository.swift */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
 		72CF4A62252B3B33003C44BB = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +154,7 @@
 		72CF4A6D252B3B33003C44BB /* KinoOnApp */ = {
 			isa = PBXGroup;
 			children = (
+				5CD58139256AF08600066A8C /* network */,
 				CE4EF70F2561672F00D77C6E /* Images */,
 				5C5155802545765700FDCF76 /* Application */,
 				5C51557B2544E03C00FDCF76 /* Model */,
@@ -270,6 +281,7 @@
 				5CE901242555FF1100B937EB /* LoginView.swift in Sources */,
 				5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */,
 				CE4EF7082561668F00D77C6E /* MovieCardView.swift in Sources */,
+				5CD5813B256AF0B100066A8C /* MovieRepository.swift in Sources */,
 				CE4EF7092561668F00D77C6E /* MovieCollectionView.swift in Sources */,
 				5CE901212555FE8000B937EB /* User.swift in Sources */,
 				5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */,
