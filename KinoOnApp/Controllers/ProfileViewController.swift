@@ -4,27 +4,28 @@ class ProfileViewController: UIViewController {
     //test
     var testUser: User = User(username: "testUser", email: "test", password: "123")
     
-    var loginField: InputField!
-    var passwordField: InputField!
-    var repPasswordField: InputField!
-    var loginButton: LoginButton!
-    var profileLabel: ProfileLable!
-    var loginLabel: PageTypeLable!
-    var signUpLabel: PageTypeLable!
-    var logTop: NSLayoutConstraint!
-    var hello: UILabel!
-    var state:StateProfileController = .login
-    var isChecked = false
+    private var loginField: InputField!
+    private var passwordField: InputField!
+    private var repPasswordField: InputField!
+    private var loginButton: LoginButton!
+    private var profileLabel: ProfileLable!
+    private var loginLabel: PageTypeLable!
+    private var signUpLabel: PageTypeLable!
+    private var logTopPass: NSLayoutConstraint!
+    private var logTopRep: NSLayoutConstraint!
+    private var hello: UILabel!
+    private var state:StateProfileController = .login
+    private var isChecked = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
         configureLabel()
+        configureTypePage()
         configureInputs()
         configureLoginButton()
         configureMessageLabel()
-        configureTypePage()
         
         setup()
     }
@@ -62,10 +63,10 @@ class ProfileViewController: UIViewController {
             if loginField.text == testUser.email {
                 hello.text = "User alredy exists"
             } else {
-                hello.text = "Meet our new friend => mister\(loginField.text!) !"
+                hello.text = "Meet our new friend => mister \(loginField.text!) !"
             }
             return
-
+            
         }
     }
     
@@ -80,26 +81,38 @@ class ProfileViewController: UIViewController {
     
     @objc
     func swipeLeft(sender: UIButton!) {
+        print("left")
+        loginState()
+    }
+    
+    @objc
+    func swipeRight(sender: UIButton!) {
+        print("right")
+        signupState()
+    }
+    
+    @objc
+    func loginState() {
         loginLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
         signUpLabel.textColor = .none
         loginButton.setTitle("ВОЙТИ", for: .normal)
         repPasswordField.isHidden = true
         state = .login
         self.view.layoutIfNeeded()
-
+        
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        logTop.isActive = true
-
+        logTopRep.isActive = false
+        logTopPass.isActive = true
+        
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveLinear, .allowUserInteraction], animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
         
-        print("left")
         print(state)
     }
     
     @objc
-    func swipeRight(sender: UIButton!) {
+    func signupState() {
         loginLabel.textColor = .none
         signUpLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
         loginButton.setTitle("СОЗДАТЬ АККАУНТ", for: .normal)
@@ -108,14 +121,13 @@ class ProfileViewController: UIViewController {
         self.view.layoutIfNeeded()
         
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        logTop.isActive = false
-        loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 300).isActive = true
+        logTopPass.isActive = false
+        logTopRep.isActive = true
         
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveLinear, .allowUserInteraction], animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
         
-        print("right")
         print(state)
     }
     
@@ -124,37 +136,66 @@ class ProfileViewController: UIViewController {
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.profileLabel!)
         
-        profileLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        profileLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
         profileLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         profileLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
         profileLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
+    
+    private func configureTypePage() {
+        loginLabel = PageTypeLable(text: "Войти")
+        signUpLabel = PageTypeLable(text: "Создать Аккаунт")
+        loginLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
+        
+        let tapLogin = UITapGestureRecognizer(target: self, action: #selector(loginState))
+        loginLabel.isUserInteractionEnabled = true
+        loginLabel.addGestureRecognizer(tapLogin)
+        let tapSignUp = UITapGestureRecognizer(target: self, action: #selector(signupState))
+        signUpLabel.isUserInteractionEnabled = true
+        signUpLabel.addGestureRecognizer(tapSignUp)
+        
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(self.loginLabel!)
+        view.addSubview(self.signUpLabel!)
+        
+        loginLabel.topAnchor.constraint(equalTo: profileLabel.topAnchor, constant: 60).isActive = true
+        loginLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
+        loginLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        loginLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        signUpLabel.topAnchor.constraint(equalTo: loginLabel.topAnchor).isActive = true
+        signUpLabel.leftAnchor.constraint(equalTo: loginLabel.leftAnchor, constant: 127).isActive = true
+        signUpLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
+        signUpLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
     private func configureInputs() {
         loginField = InputField(text: "Логин")
-        view.addSubview(self.loginField!)
-        
         passwordField = InputField(text: "Пароль", typeRightButton: .authorize)
+        repPasswordField = InputField(text: "Повторите пароль", typeRightButton: .authorize)
+
+        view.addSubview(self.loginField!)
         view.addSubview(self.passwordField!)
-        
+        view.addSubview(self.repPasswordField!)
+
         loginField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
+        repPasswordField.translatesAutoresizingMaskIntoConstraints = false
         
-        loginField.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
+        loginField.topAnchor.constraint(equalTo: loginLabel.topAnchor, constant: 60).isActive = true
         loginField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         loginField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         loginField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        passwordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 190).isActive = true
-        passwordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        passwordField.topAnchor.constraint(equalTo: loginField.topAnchor, constant: 60).isActive = true
+        passwordField.leftAnchor.constraint(equalTo: loginField.leftAnchor).isActive = true
         passwordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-
-        repPasswordField = InputField(text: "Повторите пароль", typeRightButton: .authorize)
-        view.addSubview(self.repPasswordField!)
-        repPasswordField.translatesAutoresizingMaskIntoConstraints = false
-        
-        repPasswordField.topAnchor.constraint(equalTo: view.topAnchor, constant: 250).isActive = true
-        repPasswordField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+                
+        repPasswordField.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 60).isActive = true
+        repPasswordField.leftAnchor.constraint(equalTo: passwordField.leftAnchor).isActive = true
         repPasswordField.widthAnchor.constraint(equalToConstant: 360).isActive = true
         repPasswordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -168,9 +209,12 @@ class ProfileViewController: UIViewController {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton!)
         
-        logTop = loginButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 270)
-        logTop.isActive = true
-        loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        logTopPass = loginButton.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 70)
+        logTopPass.isActive = true
+        logTopRep = loginButton.topAnchor.constraint(equalTo: repPasswordField.topAnchor, constant: 70)
+        logTopRep.isActive = false
+        
+        loginButton.leftAnchor.constraint(equalTo: loginField.leftAnchor).isActive = true
         loginButton.widthAnchor.constraint(equalToConstant: 360).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
@@ -180,31 +224,9 @@ class ProfileViewController: UIViewController {
         hello.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(hello)
-        hello.topAnchor.constraint(equalTo: view.topAnchor, constant: 330).isActive = true
-        hello.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        hello.topAnchor.constraint(equalTo: loginButton.topAnchor, constant: 30).isActive = true
+        hello.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
         hello.widthAnchor.constraint(equalToConstant: 360).isActive = true
         hello.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
-    
-    private func configureTypePage() {
-        loginLabel = PageTypeLable(text: "Войти")
-        signUpLabel = PageTypeLable(text: "Создать Аккаунт")
-        loginLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
-        
-        loginLabel.translatesAutoresizingMaskIntoConstraints = false
-        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(self.loginLabel!)
-        view.addSubview(self.signUpLabel!)
-        
-        loginLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
-        loginLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
-        loginLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        loginLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        signUpLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
-        signUpLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 187).isActive = true
-        signUpLabel.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        signUpLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }
