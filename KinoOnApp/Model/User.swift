@@ -1,7 +1,7 @@
 import Foundation
 
 struct User {
-    var username: String
-    var email: String
-    var password: String
+    let username: String
+    let email: String
+    let password: String
 }
