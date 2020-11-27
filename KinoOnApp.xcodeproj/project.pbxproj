@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C385752257140FB000E993E /* ResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C385751257140FB000E993E /* ResponseBody.swift */; };
+		5C3857552571413A000E993E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3857542571413A000E993E /* Network.swift */; };
 		5C515513254371C000FDCF76 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C515512254371C000FDCF76 /* HomeViewController.swift */; };
 		5C51552925448CE000FDCF76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51552725448CE000FDCF76 /* AppDelegate.swift */; };
 		5C5155302544BED100FDCF76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51552F2544BED100FDCF76 /* SceneDelegate.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C385751257140FB000E993E /* ResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBody.swift; sourceTree = "<group>"; };
+		5C3857542571413A000E993E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		5C515512254371C000FDCF76 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5C51552625448CE000FDCF76 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C51552725448CE000FDCF76 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C385758257144F2000E993E /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				5CD5813A256AF0B100066A8C /* MovieRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		5C5154FF25432F1000FDCF76 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +125,7 @@
 				CE4EF7012561667A00D77C6E /* MovieCollection.swift */,
 				5C51557C2544E04C00FDCF76 /* Film.swift */,
 				5CE901202555FE8000B937EB /* User.swift */,
+				5C385751257140FB000E993E /* ResponseBody.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -127,12 +140,12 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		5CD58139256AF08600066A8C /* network */ = {
+		5CD58139256AF08600066A8C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				5CD5813A256AF0B100066A8C /* MovieRepository.swift */,
+				5C3857542571413A000E993E /* Network.swift */,
 			);
-			path = network;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		72CF4A62252B3B33003C44BB = {
@@ -154,7 +167,8 @@
 		72CF4A6D252B3B33003C44BB /* KinoOnApp */ = {
 			isa = PBXGroup;
 			children = (
-				5CD58139256AF08600066A8C /* network */,
+				5C385758257144F2000E993E /* Repository */,
+				5CD58139256AF08600066A8C /* Network */,
 				CE4EF70F2561672F00D77C6E /* Images */,
 				5C5155802545765700FDCF76 /* Application */,
 				5C51557B2544E03C00FDCF76 /* Model */,
@@ -277,7 +291,9 @@
 			files = (
 				5C5155302544BED100FDCF76 /* SceneDelegate.swift in Sources */,
 				5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */,
+				5C3857552571413A000E993E /* Network.swift in Sources */,
 				5C515513254371C000FDCF76 /* HomeViewController.swift in Sources */,
+				5C385752257140FB000E993E /* ResponseBody.swift in Sources */,
 				5CE901242555FF1100B937EB /* LoginView.swift in Sources */,
 				5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */,
 				CE4EF7082561668F00D77C6E /* MovieCardView.swift in Sources */,
