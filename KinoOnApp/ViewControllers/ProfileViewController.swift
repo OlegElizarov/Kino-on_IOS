@@ -68,6 +68,9 @@ class ProfileViewController: UIViewController {
                                     print(user, "TRUE USER")
                                     self.testUser = user
                                     self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
+                                    
+                                    self.navigationController!.pushViewController(HomeViewController(), animated: true)
+                                    
                                 case .failure(let error):
                                     print(error)
                                 }

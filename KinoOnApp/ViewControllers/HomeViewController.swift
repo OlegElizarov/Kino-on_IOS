@@ -73,8 +73,9 @@ class HomeViewController: UIViewController {
         
         setUpBannerView()
         
-        MovieCollectionRepository().getHomePageCollection {(result) in
+        MovieCollectionRepository().getHomePageCollection { [weak self] result in
             DispatchQueue.main.async {
+                guard let self = self else { return }
                 switch result {
                 case .success(let collection):
                     self.movieCollectionsData.append(contentsOf: collection)
@@ -146,7 +147,7 @@ extension HomeViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerItemView",
                                                             for: indexPath) as? BannerItemView else {
-                    return UICollectionViewCell()
+            return UICollectionViewCell()
         }
         
         cell.setUp(info: self.items[indexPath.item])

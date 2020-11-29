@@ -24,7 +24,7 @@ class ProfileRepository {
         }
     }
     
-    func signup(username: String, email: String , password: String,
+    func signup(username: String, email: String, password: String,
                 completion: @escaping (Result<User, Error>) -> Void) {
         let postParams = "{\"username\": \"\(username)\",\"password\": \"\(password)\" ,\"email\":\"\(email)\"}"
                 

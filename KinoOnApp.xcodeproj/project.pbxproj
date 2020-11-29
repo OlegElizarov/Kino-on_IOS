@@ -77,13 +77,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C385758257144F2000E993E /* Repository */ = {
+		5C385758257144F2000E993E /* Decoder */ = {
 			isa = PBXGroup;
 			children = (
 				5CD5813A256AF0B100066A8C /* MovieRepository.swift */,
 				72E893EE25715AC500E69044 /* ProfileRepository.swift */,
 			);
-			path = Repository;
+			path = Decoder;
 			sourceTree = "<group>";
 		};
 		5C5154FF25432F1000FDCF76 /* Storyboards */ = {
@@ -105,7 +105,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5C51550125432F6400FDCF76 /* Controllers */ = {
+		5C51550125432F6400FDCF76 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				5C515512254371C000FDCF76 /* HomeViewController.swift */,
@@ -113,7 +113,7 @@
 				5CE9011D2555FE3200B937EB /* ProfileViewController.swift */,
 				722245C72572D90100CF5767 /* LoginViewController.swift */,
 			);
-			path = Controllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		5C5155042543303C00FDCF76 /* Resources */ = {
@@ -127,6 +127,7 @@
 		5C51557B2544E03C00FDCF76 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5CD58139256AF08600066A8C /* Network */,
 				CE4EF7022561667A00D77C6E /* MovieCard.swift */,
 				CE4EF7012561667A00D77C6E /* MovieCollection.swift */,
 				5C51557C2544E04C00FDCF76 /* Film.swift */,
@@ -149,6 +150,7 @@
 		5CD58139256AF08600066A8C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5C385758257144F2000E993E /* Decoder */,
 				5C3857542571413A000E993E /* Network.swift */,
 			);
 			path = Network;
@@ -173,12 +175,10 @@
 		72CF4A6D252B3B33003C44BB /* KinoOnApp */ = {
 			isa = PBXGroup;
 			children = (
-				5C385758257144F2000E993E /* Repository */,
-				5CD58139256AF08600066A8C /* Network */,
 				CE4EF70F2561672F00D77C6E /* Images */,
 				5C5155802545765700FDCF76 /* Application */,
 				5C51557B2544E03C00FDCF76 /* Model */,
-				5C51550125432F6400FDCF76 /* Controllers */,
+				5C51550125432F6400FDCF76 /* ViewControllers */,
 				5C5155042543303C00FDCF76 /* Resources */,
 				5C5154FF25432F1000FDCF76 /* Storyboards */,
 				5C51550025432F5300FDCF76 /* Views */,

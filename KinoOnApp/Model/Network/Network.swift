@@ -70,6 +70,9 @@ class Network {
                     return
                 }
             }
+            if data.isEmpty {
+                //decoder
+            }
             
             completion(.success(data))
         }.resume()
