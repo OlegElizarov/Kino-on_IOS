@@ -1,14 +1,6 @@
 import UIKit
 
-class ProfileViewController: UIViewController {
-//    lazy private var loginView: LoginViewController = {
-//        return LoginViewController()
-//    }()
-//    
-//    override func viewDidLoad() {
-//        print("rtgtrttttttt")
-//        self.show(loginView, sender: loginView)
-//    }
+class LoginViewController: UIViewController {
     //test
     var testUser: User = User(id: 0, username: "testUser", email: "test", password: "123", image: "")
     
@@ -62,18 +54,18 @@ class ProfileViewController: UIViewController {
                     case .success(let user):
                         print(user, "after LOGIN")
                         ProfileRepository().getUser {(result) in
-                            DispatchQueue.main.async {
-                                switch result {
-                                case .success(let user):
-                                    print(user, "TRUE USER")
-                                    self.testUser = user
-                                    self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
-                                case .failure(let error):
-                                    print(error)
+                                DispatchQueue.main.async {
+                                    switch result {
+                                    case .success(let user):
+                                        print(user, "TRUE USER")
+                                        self.testUser = user
+                                        self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
+                                    case .failure(let error):
+                                        print(error)
+                                    }
                                 }
-                            }
                         }
-                        
+
                     case .failure(let error):
                         print(error)
                     }
