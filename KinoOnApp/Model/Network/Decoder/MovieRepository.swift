@@ -7,18 +7,16 @@ class MovieCollectionRepository {
         completion: @escaping (Result<[MovieCollection], Error>) -> Void) {
         
         network.doGet(url: "index") {(result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    do {
-                        let collection = try self.decodeMovieCollection(data: data)
-                        completion(.success(collection))
-                    } catch let error {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
+            switch result {
+            case .success(let data):
+                do {
+                    let collection = try self.decodeMovieCollection(data: data)
+                    completion(.success(collection))
+                } catch let error {
                     completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

@@ -11,8 +11,9 @@ class TabBarController: UITabBarController {
     lazy private var homeController: HomeViewController = {
         return HomeViewController()
     }()
-    lazy private var profileController: ProfileViewController = {
-        return ProfileViewController()
+    lazy private var profileController: UIViewController = {
+//        return ProfileViewController()
+        return UINavigationController(rootViewController: ProfileViewController())
     }()
 
     override func viewDidLoad() {

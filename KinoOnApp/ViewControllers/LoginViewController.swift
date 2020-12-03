@@ -1,8 +1,8 @@
 import UIKit
 
-class ProfileViewController: UIViewController {
+class LoginViewController: UIViewController {
     //test
-    var testUser: User = User(username: "testUser", email: "test", password: "123")
+    var testUser: User = User(id: 0, username: "testUser", email: "test", password: "123", image: "")
     
     private var loginField: InputField!
     private var passwordField: InputField!
@@ -16,21 +16,6 @@ class ProfileViewController: UIViewController {
     private var hello: UILabel!
     private var state: StateProfileController = .login
     private var isChecked = false
-    
-//    var segm: UISegmentedControl!
-//    private var ofs1: NSLayoutConstraint!
-//    private var ofs2: NSLayoutConstraint!
-//    private var ofs3: NSLayoutConstraint!
-//
-//    let segmentindicator: UIView = {
-//
-//        let vie = UIView()
-//
-//        vie.translatesAutoresizingMaskIntoConstraints = false
-//        vie.backgroundColor = UIColor.yellow
-//
-//        return vie
-//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +48,45 @@ class ProfileViewController: UIViewController {
     func loginButtonAction(sender: UIButton!) {
         switch state {
         case .login:
-            if (loginField.text == testUser.email) && (passwordField.text == testUser.password) {
-                hello.text = "Hello , \(testUser.username)!"
-            } else {
-                hello.text = "Wrong params!"
+            ProfileRepository().login(username: loginField.text!, password: passwordField.text!) {(result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let user):
+                        print(user, "after LOGIN")
+                        ProfileRepository().getUser {(result) in
+                                DispatchQueue.main.async {
+                                    switch result {
+                                    case .success(let user):
+                                        print(user, "TRUE USER")
+                                        self.testUser = user
+                                        self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                                }
+                        }
+
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             }
+            
+            print(testUser)
+            
             return
             
         case .signup:
+            ProfileRepository().logout {(result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data):
+                        print(data)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
             if passwordField.text != repPasswordField.text {
                 hello.text = "Passwords do not match!"
                 return
@@ -191,11 +207,11 @@ class ProfileViewController: UIViewController {
         loginField = InputField(text: "Логин")
         passwordField = InputField(text: "Пароль", typeRightButton: .authorize)
         repPasswordField = InputField(text: "Повторите пароль", typeRightButton: .authorize)
-
+        
         view.addSubview(self.loginField!)
         view.addSubview(self.passwordField!)
         view.addSubview(self.repPasswordField!)
-
+        
         loginField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         repPasswordField.translatesAutoresizingMaskIntoConstraints = false
@@ -210,7 +226,7 @@ class ProfileViewController: UIViewController {
         
         passwordField.topAnchor.constraint(equalTo: loginField.topAnchor, constant: 60).isActive = true
         passwordField.leftAnchor.constraint(equalTo: loginField.leftAnchor).isActive = true
-                
+        
         repPasswordField.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 60).isActive = true
         repPasswordField.leftAnchor.constraint(equalTo: passwordField.leftAnchor).isActive = true
         
@@ -243,67 +259,5 @@ class ProfileViewController: UIViewController {
         hello.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
         hello.widthAnchor.constraint(equalToConstant: 360).isActive = true
         hello.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-//        segm = UISegmentedControl(items: ["One", "Two", "Three"])
-//        segm.selectedSegmentIndex = 0
-//        segm.translatesAutoresizingMaskIntoConstraints = false
-//        segm.backgroundColor = .clear
-//        segm.tintColor = .clear
-//        segm.setTitleTextAttributes([NSAttributedString.Key.font:
-//                                        UIFont(name: "AvenirNextCondensed-Medium",
-//                                               size: 20)!,
-//                                     NSAttributedString.Key.foregroundColor:
-//                                        UIColor.lightGray], for: .normal)
-//        segm.setTitleTextAttributes([NSAttributedString.Key.font:
-//                                        UIFont(name: "AvenirNextCondensed-Medium",
-//                                               size: 24)!,
-//                                     NSAttributedString.Key.foregroundColor:
-//                                        #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)], for: .selected)
-//
-//        self.view.addSubview(segm)
-//        segm.topAnchor.constraint(equalTo: loginButton.topAnchor, constant: 80).isActive = true
-//        segm.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
-//        segm.widthAnchor.constraint(equalToConstant: 360).isActive = true
-//        segm.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        segm.addTarget(self, action: #selector(indexChanged), for: .valueChanged)
-//
-//        self.view.addSubview(segmentindicator)
-//        segmentindicator.topAnchor.constraint(equalTo: segm.bottomAnchor, constant: 2).isActive = true
-//        ofs1 = segmentindicator.leftAnchor.constraint(equalTo: segm.leftAnchor, constant: 10)
-//        ofs1.isActive = true
-//        ofs2 = segmentindicator.leftAnchor.constraint(equalTo: segm.leftAnchor, constant: 130)
-//        ofs2.isActive = false
-//        ofs3 = segmentindicator.leftAnchor.constraint(equalTo: segm.leftAnchor, constant: 250)
-//        ofs3.isActive = false
-//
-//        segmentindicator.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        segmentindicator.heightAnchor.constraint(equalToConstant: 2).isActive = true
-//
     }
-    
-//    @objc
-//    func indexChanged(_ sender: UISegmentedControl) {
-//        let numberOfSegments = CGFloat(segm.numberOfSegments)
-//        let selectedIndex = CGFloat(sender.selectedSegmentIndex)
-//        switch selectedIndex {
-//        case 0:
-//            ofs2.isActive = false
-//            ofs3.isActive = false
-//            ofs1.isActive = true
-//        case 1:
-//            ofs1.isActive = false
-//            ofs3.isActive = false
-//            ofs2.isActive = true
-//        case 2:
-//            ofs1.isActive = false
-//            ofs2.isActive = false
-//            ofs3.isActive = true
-//        default: break
-//        }
-//
-//        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveLinear, .allowUserInteraction], animations: {
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
-//    }
-
 }
