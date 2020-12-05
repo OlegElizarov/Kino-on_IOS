@@ -22,7 +22,7 @@ class MovieCardView: UICollectionViewCell {
     
     func fillCell(model: MovieCard) {
         id = model.id
-        movieImageView.image = UIImage(named: model.image)
+        movieImageView.image = model.image
         ageLimitLabel.text = "\(model.ageLimit)+"
         movieNameLabel.text = model.name
     }

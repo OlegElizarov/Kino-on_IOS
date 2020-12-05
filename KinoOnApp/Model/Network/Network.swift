@@ -16,7 +16,7 @@ class Network {
     private final let host: String = "http://64.225.100.179:8080"
     
     func doGet(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        guard let request = URL(string: "\(host)/\(url)") else {
+        guard let request = URL(string: url) else {
             return
         }
         

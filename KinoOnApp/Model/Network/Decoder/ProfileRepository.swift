@@ -63,7 +63,7 @@ class ProfileRepository {
     }
     
     func getUser(completion: @escaping (Result<User, Error>) -> Void) {
-        network.doGet(url: "user") {(result) in
+        network.doGet(url: "http://64.225.100.179:8080/user") {(result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
