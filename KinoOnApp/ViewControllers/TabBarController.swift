@@ -11,6 +11,11 @@ class TabBarController: UITabBarController {
     lazy private var homeController: HomeViewController = {
         return HomeViewController()
     }()
+    
+    lazy private var catalogController: CatalogViewController = {
+        return CatalogViewController()
+    }()
+    
     lazy private var profileController: UIViewController = {
 //        return ProfileViewController()
         return UINavigationController(rootViewController: ProfileViewController())
@@ -23,9 +28,12 @@ class TabBarController: UITabBarController {
         let homeTab = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         self.homeController.tabBarItem = homeTab
         
-        let profileTab = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
+        let catalogTab = UITabBarItem(title: "Catalog", image: UIImage(systemName: "magnifyingglass"), tag: 1)
+        self.catalogController.tabBarItem = catalogTab
+        
+        let profileTab = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 2)
         self.profileController.tabBarItem = profileTab
         
-        viewControllers = [homeController, profileController]
+        viewControllers = [homeController, catalogController, profileController]
     }
 }
