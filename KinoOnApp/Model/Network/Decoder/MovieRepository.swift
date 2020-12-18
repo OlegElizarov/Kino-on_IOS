@@ -30,15 +30,15 @@ class MovieCollectionRepository {
         for collection in responseBody.body {
             var coll = MovieCollection(name: collection.name, movies: [])
 
-
             for movie in collection.movies {
-                downloadImage(url: movie.image, completion: { image in
-                    coll.movies.append(MovieCard(
-                            id: movie.id,
-                            name: movie.name,
-                            ageLimit: movie.ageLimit,
-                            image: image))
-                })
+                let card = MovieCard()
+
+                card.id = movie.id
+                card.name = movie.name
+                card.ageLimit = movie.ageLimit
+                downloadImage(url: movie.image, card: card)
+
+                coll.movies.append(card)
             }
 
             result.append(coll)
@@ -47,19 +47,21 @@ class MovieCollectionRepository {
         return result
     }
 
-    private func downloadImage(url: String, completion: @escaping (UIImage) -> Void) {
+    private func downloadImage(url: String, card: MovieCard) {
         var url = url
         if !url.starts(with: "http") {
             url = "https://kino-on.ru\(url)"
         }
 
-        network.doGet(url: url, completion: { result in
-            switch result {
-            case .success(let data):
-                completion(UIImage(data: data) ?? UIImage())
-            case .failure(let error):
-                print(error)
-            }
-        })
+        DispatchQueue.global(qos: .utility).async {
+            self.network.doGet(url: url, completion: { result in
+                switch result {
+                case .success(let data):
+                    card.image = UIImage(data: data) ?? UIImage()
+                case .failure(let error):
+                    print(error)
+                }
+            })
+        }
     }
 }

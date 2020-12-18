@@ -1,11 +1,18 @@
 import Foundation
 import UIKit
 
-struct MovieCard {
-    let id: Int
-    let name: String
-    let ageLimit: Int
+class MovieCard {
+    var id: Int
+    var name: String
+    var ageLimit: Int
     var image: UIImage
+
+    init() {
+        id = 0
+        name = ""
+        ageLimit = 0
+        image = UIImage()
+    }
 }
 
 struct MovieCardJson: Codable {
