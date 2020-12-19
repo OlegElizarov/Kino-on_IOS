@@ -9,7 +9,7 @@ class BannerItemView: UICollectionViewCell {
         static let descLines = 4
         static let descBottomIndent = CGFloat(20)
         static let descHeightMultiplier = CGFloat(0.2)
-        static let titleHeightMutliplier = CGFloat(0.1)
+        static let titleHeightMultiplier = CGFloat(0.1)
     }
     
     private var filmTitle = UILabel()
@@ -95,7 +95,7 @@ class BannerItemView: UICollectionViewCell {
             equalTo: self.filmDescription.topAnchor).isActive = true
         filmTitle.heightAnchor.constraint(
             equalTo: self.heightAnchor,
-            multiplier: BannerItemViewConstants.titleHeightMutliplier).isActive = true
+            multiplier: BannerItemViewConstants.titleHeightMultiplier).isActive = true
         
         filmTitle.layoutIfNeeded()
     }

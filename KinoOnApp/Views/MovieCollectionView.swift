@@ -5,7 +5,7 @@ class MovieCollectionView: UICollectionViewCell {
     
     private let collectionNameLabel = UILabel()
     private let showMoreLabel = UILabel()
-    private var collection: MovieCollection!
+    var collection: MovieCollection!
     
     lazy private var moviesCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())

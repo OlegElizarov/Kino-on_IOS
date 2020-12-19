@@ -38,6 +38,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationItem.title = "KINO|ON"
 
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,6 +98,10 @@ class HomeViewController: UIViewController {
             scrollView.addSubview(movieCollection)
             movieCollection.translatesAutoresizingMaskIntoConstraints = false
 
+            let singleTap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+            movieCollection.isUserInteractionEnabled = true
+            movieCollection.addGestureRecognizer(singleTap)
+
             NSLayoutConstraint.activate([
                 movieCollection.topAnchor.constraint(
                         equalTo: leadingAnchor,
@@ -113,6 +118,11 @@ class HomeViewController: UIViewController {
                     height: scrollView.contentSize.height
                             + HomeViewControllerConstants.movieCollectionHeight)
         }
+    }
+
+    @objc
+    private func tapDetected() {
+        self.navigationController?.pushViewController(FilmViewController(filmId: 2), animated: true)
     }
 }
 
