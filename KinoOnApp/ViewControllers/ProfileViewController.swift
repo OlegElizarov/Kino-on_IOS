@@ -1,34 +1,27 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-//    lazy private var loginView: LoginViewController = {
-//        return LoginViewController()
-//    }()
-//    
-//    override func viewDidLoad() {
-//        print("rtgtrttttttt")
-//        self.show(loginView, sender: loginView)
-//    }
     //test
     var testUser: User = User(id: 0, username: "testUser", email: "test", password: "123", image: "")
     
     private var loginField: InputField!
     private var passwordField: InputField!
     private var repPasswordField: InputField!
-    private var loginButton: LoginButton!
+    private var loginButton: SubmitButton!
     private var profileLabel: ProfileLable!
     private var loginLabel: PageTypeLable!
     private var signUpLabel: PageTypeLable!
     private var logTopPass: NSLayoutConstraint!
     private var logTopRep: NSLayoutConstraint!
     private var hello: UILabel!
-    private var state: StateProfileController = .login
+    private var state: StateLoginController = .login
     private var isChecked = false
+    var parentController: TabBarController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
+        modalTransitionStyle = .flipHorizontal
         configureLabel()
         configureTypePage()
         configureInputs()
@@ -65,11 +58,13 @@ class ProfileViewController: UIViewController {
                             DispatchQueue.main.async {
                                 switch result {
                                 case .success(let user):
-                                    print(user, "TRUE USER")
+                                    UserDatabase().saveUserData(user: user)
                                     self.testUser = user
                                     self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
-                                    
-                                    self.navigationController!.pushViewController(HomeViewController(), animated: true)
+                                    self.navigationController!.pushViewController(UserViewController(), animated: true)
+                                    let newController = UserViewController()
+                                    newController.parentController = self.parentController
+                                    self.parentController.changeItemController(newController: newController)
                                     
                                 case .failure(let error):
                                     print(error)
@@ -246,7 +241,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureLoginButton() {
-        loginButton = LoginButton(text: "ВОЙТИ")
+        loginButton = SubmitButton(text: "ВОЙТИ")
         loginButton.addTarget(self, action: #selector(loginButtonAction), for: .touchUpInside)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton!)

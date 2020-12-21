@@ -1,6 +1,6 @@
 import UIKit
 
-enum StateProfileController {
+enum StateLoginController {
     case login
     case signup
 }
@@ -27,7 +27,7 @@ class PageTypeLable: UILabel {
     }
 }
 
-class LoginButton: UIButton {
+class SubmitButton: UIButton {
     init(text: String) {
         super.init(frame: .zero)
         self.backgroundColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
@@ -76,11 +76,6 @@ enum TypesTextFieldRightButtons {
 }
 
 class InputField: UITextField {
-//    init(text: String) {
-//        super.init(frame: .zero)
-//        self.placeholder = text
-//        createBorder()
-//    }
     
     init(text: String, typeRightButton: TypesTextFieldRightButtons? = nil) {
         super.init(frame: .zero)

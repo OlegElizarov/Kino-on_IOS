@@ -11,8 +11,12 @@ class TabBarController: UITabBarController {
     lazy private var homeController: UIViewController = {
         return UINavigationController(rootViewController: HomeViewController())
     }()
-    lazy private var profileController: UIViewController = {
-        return UINavigationController(rootViewController: ProfileViewController())
+    lazy var profileController: UIViewController = {
+        let controller = ProfileViewController()
+        controller.parentController = self
+        let nav = UINavigationController(rootViewController: controller)
+        nav.isNavigationBarHidden = true
+        return nav
     }()
 
     override func viewDidLoad() {
@@ -25,5 +29,16 @@ class TabBarController: UITabBarController {
         self.profileController.tabBarItem = profileTab
         
         viewControllers = [homeController, profileController]
+    }
+
+    func changeItemController(newController: UIViewController) {
+        let nav = UINavigationController(rootViewController: newController)
+        nav.isNavigationBarHidden = true
+        profileController = nav
+        let profileTab = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
+        self.profileController.tabBarItem = profileTab
+
+        viewControllers = [homeController, profileController]
+
     }
 }
