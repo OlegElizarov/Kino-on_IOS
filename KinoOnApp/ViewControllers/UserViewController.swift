@@ -158,7 +158,7 @@ class UserViewController: UIViewController {
                 }
             }
         }
-        //TODO: clean storage
+        // TODO: clean storage
         UserDatabase().removeUser()
     }
     

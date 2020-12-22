@@ -18,27 +18,49 @@ class TabBarController: UITabBarController {
         nav.isNavigationBarHidden = true
         return nav
     }()
-
+    
+    lazy var userController: UIViewController = {
+        let controller = UserViewController()
+        controller.parentController = self
+        let nav = UINavigationController(rootViewController: controller)
+        nav.isNavigationBarHidden = true
+        return nav
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let homeTab = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         self.homeController.tabBarItem = homeTab
         
         let profileTab = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
-        self.profileController.tabBarItem = profileTab
         
-        viewControllers = [homeController, profileController]
+        ProfileRepository().getUser {(result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success( _):
+                    self.userController.tabBarItem = profileTab
+                    self.viewControllers = [self.homeController, self.userController]
+                case .failure( _):
+                    self.profileController.tabBarItem = profileTab
+                    self.viewControllers = [self.homeController, self.profileController]
+                }
+            }
+        }
+        
+//        self.profileController.tabBarItem = profileTab
+//        
+//        viewControllers = [homeController, profileController]
     }
-
+    
     func changeItemController(newController: UIViewController) {
         let nav = UINavigationController(rootViewController: newController)
         nav.isNavigationBarHidden = true
         profileController = nav
         let profileTab = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         self.profileController.tabBarItem = profileTab
-
+        
         viewControllers = [homeController, profileController]
-
+        
     }
 }
