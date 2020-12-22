@@ -8,6 +8,7 @@ struct LayoutConstants {
 
 struct Colors {
     static let blue = #colorLiteral(red: 0.04649306834, green: 0.3764508665, blue: 0.578525126, alpha: 1)
+    static let lightGray = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.937254902, alpha: 1)
     static let shadow = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1)
 }
 
@@ -17,7 +18,29 @@ struct CatalogViewControllerConstants {
     static let underlineViewHeight = CGFloat(2)
 }
 
+struct ChosenFilters {
+    var genre: Int
+    var year: Int
+    var order: Int
+}
+
+enum FilterType {
+    case Genre
+    case Year
+    case Order
+}
+
+let filterButtons = [
+    "genre",
+    "year",
+    "order",
+]
+
 class CatalogViewController: UIViewController {
+    
+    private var filters: Filters = Filters(genre: [], year: [], order: [])
+    private var currentTab = ContentType.Movies
+    private var chosenFilters: ChosenFilters = ChosenFilters(genre: 0, year: 0, order: 0)
     
     private let headlineLabel = UILabel()
     
@@ -69,6 +92,10 @@ class CatalogViewController: UIViewController {
         underlineView.translatesAutoresizingMaskIntoConstraints = false
         return underlineView
     }()
+    
+    private var filterButtons: [FilterButtonView] = []
+//    private var yearButton: FilterButtonView!
+//    private var orderButton: FilterButtonView!
 
     private lazy var leadingDistanceConstraint: NSLayoutConstraint = {
         return bottomUnderlineView.leftAnchor.constraint(equalTo: segmentedControl.leftAnchor)
@@ -80,6 +107,7 @@ class CatalogViewController: UIViewController {
         
         setupHeader()
         setupSegmentControl()
+        setupFilters()
     }
     
     func setupHeader() {
@@ -104,7 +132,6 @@ class CatalogViewController: UIViewController {
         segmentedControlContainerView.addSubview(segmentedControl)
         segmentedControlContainerView.addSubview(bottomUnderlineView)
 
-//            let safeLayoutGuide = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             segmentedControlContainerView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor),
             segmentedControlContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -141,5 +168,39 @@ class CatalogViewController: UIViewController {
             self?.leadingDistanceConstraint.constant = leadingDistance
             self?.view.layoutIfNeeded()
         })
+    }
+    
+    func setupFilters() {
+        FilterRepository().getFilters(type: currentTab) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let filters):
+                    self.filters = filters
+                    self.chosenFilters = ChosenFilters(genre: 0, year: 0, order: 0)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func setFilter(filterType: FilterType, value: Int) {
+        switch filterType {
+        case FilterType.Genre:
+            self.chosenFilters.genre = value
+        case FilterType.Year:
+            self.chosenFilters.year = value
+        case FilterType.Order:
+            self.chosenFilters.order = value
+        }
+    }
+    
+    func setupFilterButtons() {
+        for (index, filterButton) in filterButtons.enumerated() {
+            filterButton.fillCell(value: filters[chosenFilters[filterButtons[index]]].name)
+            filterButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(filterButton)
+        }
     }
 }

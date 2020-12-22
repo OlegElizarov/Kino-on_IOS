@@ -44,6 +44,11 @@
 		CE83C1EB258003D400174D61 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E1258003D400174D61 /* Montserrat-Regular.ttf */; };
 		CE83C1EC258003D400174D61 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E2258003D400174D61 /* OpenSans-Regular.ttf */; };
 		CE83C1ED258003D400174D61 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E3258003D400174D61 /* Montserrat-Medium.ttf */; };
+		CE83C1F8258EB2F900174D61 /* FilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1F7258EB2F900174D61 /* FilterItem.swift */; };
+		CE83C1FB258EB54500174D61 /* FilterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1FA258EB54500174D61 /* FilterRepository.swift */; };
+		CE83C1FE258EB5C100174D61 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1FD258EB5C100174D61 /* Filters.swift */; };
+		CE83C201258EBFCC00174D61 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C200258EBFCC00174D61 /* ContentType.swift */; };
+		CE83C204258EC67E00174D61 /* FilterButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C203258EC67E00174D61 /* FilterButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +91,11 @@
 		CE83C1E1258003D400174D61 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		CE83C1E2258003D400174D61 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		CE83C1E3258003D400174D61 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		CE83C1F7258EB2F900174D61 /* FilterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItem.swift; sourceTree = "<group>"; };
+		CE83C1FA258EB54500174D61 /* FilterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRepository.swift; sourceTree = "<group>"; };
+		CE83C1FD258EB5C100174D61 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		CE83C200258EBFCC00174D61 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		CE83C203258EC67E00174D61 /* FilterButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +114,7 @@
 			children = (
 				5CD5813A256AF0B100066A8C /* MovieRepository.swift */,
 				72E893EE25715AC500E69044 /* ProfileRepository.swift */,
+				CE83C1FA258EB54500174D61 /* FilterRepository.swift */,
 			);
 			path = Decoder;
 			sourceTree = "<group>";
@@ -123,6 +134,7 @@
 				CE4EF7072561668F00D77C6E /* MovieCollectionView.swift */,
 				5C5155782544DEA800FDCF76 /* BannerItemView.swift */,
 				5CE901232555FF1100B937EB /* LoginView.swift */,
+				CE83C203258EC67E00174D61 /* FilterButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -157,6 +169,9 @@
 				5C51557C2544E04C00FDCF76 /* Film.swift */,
 				5CE901202555FE8000B937EB /* User.swift */,
 				5C385751257140FB000E993E /* ResponseBody.swift */,
+				CE83C1F7258EB2F900174D61 /* FilterItem.swift */,
+				CE83C1FD258EB5C100174D61 /* Filters.swift */,
+				CE83C200258EBFCC00174D61 /* ContentType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -351,14 +366,19 @@
 				5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */,
 				CE83C1D6257FEFDE00174D61 /* CatalogViewController.swift in Sources */,
 				5C3857552571413A000E993E /* Network.swift in Sources */,
+				CE83C201258EBFCC00174D61 /* ContentType.swift in Sources */,
 				5C515513254371C000FDCF76 /* HomeViewController.swift in Sources */,
+				CE83C204258EC67E00174D61 /* FilterButtonView.swift in Sources */,
 				5C385752257140FB000E993E /* ResponseBody.swift in Sources */,
 				5CE901242555FF1100B937EB /* LoginView.swift in Sources */,
 				5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */,
 				CE4EF7082561668F00D77C6E /* MovieCardView.swift in Sources */,
 				5CD5813B256AF0B100066A8C /* MovieRepository.swift in Sources */,
 				CE4EF7092561668F00D77C6E /* MovieCollectionView.swift in Sources */,
+				CE83C1F8258EB2F900174D61 /* FilterItem.swift in Sources */,
 				5CE901212555FE8000B937EB /* User.swift in Sources */,
+				CE83C1FB258EB54500174D61 /* FilterRepository.swift in Sources */,
+				CE83C1FE258EB5C100174D61 /* Filters.swift in Sources */,
 				5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */,
 				72E893EF25715AC500E69044 /* ProfileRepository.swift in Sources */,
 				CE4EF7042561667A00D77C6E /* MovieCard.swift in Sources */,
