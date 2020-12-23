@@ -61,7 +61,10 @@ class ProfileViewController: UIViewController {
                                     UserDatabase().saveUserData(user: user)
                                     self.testUser = user
                                     self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
-                                    self.navigationController!.pushViewController(UserViewController(), animated: true)
+                                    let controller = UserViewController()
+                                    controller.modalTransitionStyle = .flipHorizontal
+
+                                    self.navigationController!.pushViewController(controller, animated: true)
                                     let newController = UserViewController()
                                     newController.parentController = self.parentController
                                     self.parentController.changeItemController(newController: newController)

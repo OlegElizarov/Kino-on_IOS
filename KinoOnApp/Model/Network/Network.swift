@@ -56,7 +56,7 @@ class Network {
             }
             
             if let httpResponse = response as? HTTPURLResponse {
-                print("headers: \(httpResponse.allHeaderFields)")
+//                print("headers: \(httpResponse.allHeaderFields)")
 
                 if httpResponse.statusCode != 200 {
                     completion(.failure(NetworkError(msg: "not 200")))
@@ -92,7 +92,7 @@ class Network {
         }
         
         request.setValue(token, forHTTPHeaderField: "X-CSRF-TOKEN")
-        print(request.allHTTPHeaderFields!)
+//        print(request.allHTTPHeaderFields!)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {

@@ -16,6 +16,7 @@ class TabBarController: UITabBarController {
         controller.parentController = self
         let nav = UINavigationController(rootViewController: controller)
         nav.isNavigationBarHidden = true
+        nav.modalTransitionStyle = .flipHorizontal
         return nav
     }()
     
@@ -24,6 +25,7 @@ class TabBarController: UITabBarController {
         controller.parentController = self
         let nav = UINavigationController(rootViewController: controller)
         nav.isNavigationBarHidden = true
+        nav.modalTransitionStyle = .flipHorizontal
         return nav
     }()
     
@@ -47,10 +49,6 @@ class TabBarController: UITabBarController {
                 }
             }
         }
-        
-//        self.profileController.tabBarItem = profileTab
-//        
-//        viewControllers = [homeController, profileController]
     }
     
     func changeItemController(newController: UIViewController) {

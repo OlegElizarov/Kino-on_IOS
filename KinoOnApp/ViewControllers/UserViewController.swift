@@ -54,7 +54,22 @@ class UserViewController: UIViewController {
         usernameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         avatar = UIImageView()
-        avatar.image = UIImage(named: "test_banner_img")
+       
+        FilmRepository().downloadImage(url: "/static/img/\(self.userData.image)",
+                completion: { [weak self] result in
+                    DispatchQueue.main.async {
+                        guard let self = self else {
+                            return
+                        }
+
+                        switch result {
+                        case .success(let image):
+                            self.avatar.image = image
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                })
         
         avatar.layer.borderWidth = 1
         avatar.layer.masksToBounds = false
@@ -147,7 +162,9 @@ class UserViewController: UIViewController {
                 switch result {
                 case .success(let data):
                     print(data)
-                    self.navigationController!.pushViewController(ProfileViewController(), animated: true)
+                    let controller = ProfileViewController()
+                    controller.modalTransitionStyle = .flipHorizontal
+                    self.navigationController!.pushViewController(controller, animated: true)
                     
                     let newController = ProfileViewController()
                     newController.parentController = self.parentController
