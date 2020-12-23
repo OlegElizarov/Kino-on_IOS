@@ -20,13 +20,12 @@
 		5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE9011D2555FE3200B937EB /* ProfileViewController.swift */; };
 		5CE901212555FE8000B937EB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE901202555FE8000B937EB /* User.swift */; };
 		5CE901242555FF1100B937EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE901232555FF1100B937EB /* LoginView.swift */; };
-		727F4EA5258A34DC0031B47C /* UserDatabse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727F4EA4258A34DC0031B47C /* UserDatabse.swift */; };
-		72A2112D2587902C00D77F3F /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A2112C2587902C00D77F3F /* UserDefaults.swift */; };
 		72CF4A78252B3B35003C44BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72CF4A77252B3B35003C44BB /* Assets.xcassets */; };
 		72CF4A7B252B3B35003C44BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72CF4A79252B3B35003C44BB /* LaunchScreen.storyboard */; };
 		72E893EF25715AC500E69044 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E893EE25715AC500E69044 /* ProfileRepository.swift */; };
 		72E9136525861D500066F2CF /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E9136425861D500066F2CF /* UserViewController.swift */; };
-		72E91368258627B60066F2CF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E91367258627B60066F2CF /* FileManager.swift */; };
+		72FFBBBF259228F400565437 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FFBBBE259228F400565437 /* UserDefaults.swift */; };
+		72FFBBC22592290D00565437 /* UserDatabse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FFBBC12592290D00565437 /* UserDatabse.swift */; };
 		CE4EF7032561667A00D77C6E /* MovieCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF7012561667A00D77C6E /* MovieCollection.swift */; };
 		CE4EF7042561667A00D77C6E /* MovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF7022561667A00D77C6E /* MovieCard.swift */; };
 		CE4EF7082561668F00D77C6E /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF7062561668F00D77C6E /* MovieCardView.swift */; };
@@ -51,14 +50,13 @@
 		5CE9011D2555FE3200B937EB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5CE901202555FE8000B937EB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5CE901232555FF1100B937EB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		727F4EA4258A34DC0031B47C /* UserDatabse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabse.swift; sourceTree = "<group>"; };
-		72A2112C2587902C00D77F3F /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		72CF4A6B252B3B33003C44BB /* KinoOnApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinoOnApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72CF4A77252B3B35003C44BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72CF4A7A252B3B35003C44BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72E893EE25715AC500E69044 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		72E9136425861D500066F2CF /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		72E91367258627B60066F2CF /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		72FFBBBE259228F400565437 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		72FFBBC12592290D00565437 /* UserDatabse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabse.swift; sourceTree = "<group>"; };
 		CE4EF7012561667A00D77C6E /* MovieCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollection.swift; sourceTree = "<group>"; };
 		CE4EF7022561667A00D77C6E /* MovieCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
 		CE4EF7062561668F00D77C6E /* MovieCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
@@ -132,6 +130,7 @@
 		5C51557B2544E03C00FDCF76 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				72FFBBBC259227DB00565437 /* Database */,
 				5CD58139256AF08600066A8C /* Network */,
 				CE4EF7022561667A00D77C6E /* MovieCard.swift */,
 				CE4EF7012561667A00D77C6E /* MovieCollection.swift */,
@@ -161,21 +160,12 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		72A2112925876EE600D77F3F /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				72E91367258627B60066F2CF /* FileManager.swift */,
-				72A2112C2587902C00D77F3F /* UserDefaults.swift */,
-				727F4EA4258A34DC0031B47C /* UserDatabse.swift */,
-			);
-			path = Database;
-			sourceTree = "<group>";
-		};
 		72CF4A62252B3B33003C44BB = {
 			isa = PBXGroup;
 			children = (
 				72CF4A6D252B3B33003C44BB /* KinoOnApp */,
 				72CF4A6C252B3B33003C44BB /* Products */,
+				72FFBBBA2592277100565437 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,6 +189,22 @@
 				5CE63FDE2555BEFA007981ED /* .swiftlint.yml */,
 			);
 			path = KinoOnApp;
+			sourceTree = "<group>";
+		};
+		72FFBBBA2592277100565437 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		72FFBBBC259227DB00565437 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				72FFBBBE259228F400565437 /* UserDefaults.swift */,
+				72FFBBC12592290D00565437 /* UserDatabse.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,7 +302,6 @@
 				5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */,
 				5C3857552571413A000E993E /* Network.swift in Sources */,
 				5C515513254371C000FDCF76 /* HomeViewController.swift in Sources */,
-				72A2112D2587902C00D77F3F /* UserDefaults.swift in Sources */,
 				5C385752257140FB000E993E /* ResponseBody.swift in Sources */,
 				5CE901242555FF1100B937EB /* LoginView.swift in Sources */,
 				5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */,
@@ -307,7 +312,8 @@
 				5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */,
 				72E893EF25715AC500E69044 /* ProfileRepository.swift in Sources */,
 				CE4EF7042561667A00D77C6E /* MovieCard.swift in Sources */,
-				72E91368258627B60066F2CF /* FileManager.swift in Sources */,
+				72FFBBC22592290D00565437 /* UserDatabse.swift in Sources */,
+				72FFBBBF259228F400565437 /* UserDefaults.swift in Sources */,
 				5C51552925448CE000FDCF76 /* AppDelegate.swift in Sources */,
 				CE4EF7032561667A00D77C6E /* MovieCollection.swift in Sources */,
 				5C51557D2544E04C00FDCF76 /* Film.swift in Sources */,
@@ -315,7 +321,6 @@
 				D9D708025A1D4EEA3A35A42E /* FilmView.swift in Sources */,
 				D9D708F3DB80D7E439310269 /* FilmRepository.swift in Sources */,
 				72E9136525861D500066F2CF /* UserViewController.swift in Sources */,
-                727F4EA5258A34DC0031B47C /* UserDatabse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

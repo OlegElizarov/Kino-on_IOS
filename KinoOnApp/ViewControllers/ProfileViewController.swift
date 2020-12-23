@@ -1,7 +1,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    //test
+    // test
     var testUser: User = User(id: 0, username: "testUser", email: "test", password: "123", image: "")
     
     private var loginField: InputField!
