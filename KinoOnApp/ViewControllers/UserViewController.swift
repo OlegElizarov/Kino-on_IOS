@@ -1,6 +1,6 @@
 import UIKit
 
-class UserViewController: UIViewController {
+class UserViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     private var userLable: ProfileLable!
     private var usernameLabel: UILabel!
     private var loginInputField: InputField!
@@ -16,9 +16,10 @@ class UserViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         modalTransitionStyle = .flipHorizontal
-
+        
         configureLabel()
         configureUserData()
+        configureAvatar()
         configureInputs()
         configureSaveButton()
         configureLogoutButton()
@@ -52,38 +53,46 @@ class UserViewController: UIViewController {
         usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         usernameLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         usernameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
+    }
+    
+    private func configureAvatar() {
         avatar = UIImageView()
-       
-        FilmRepository().downloadImage(url: "/static/img/\(self.userData.image)",
-                completion: { [weak self] result in
-                    DispatchQueue.main.async {
-                        guard let self = self else {
-                            return
-                        }
-
-                        switch result {
-                        case .success(let image):
-                            self.avatar.image = image
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                })
         
-        avatar.layer.borderWidth = 1
-        avatar.layer.masksToBounds = false
-        avatar.layer.borderColor = UIColor.black.cgColor
-        avatar.layer.cornerRadius = 50.0
-        avatar.clipsToBounds = true
+        print(self.userData.image)
+        
+        FilmRepository().downloadImage(url: "/static/img/\(self.userData.image)",
+                                       completion: { [weak self] result in
+                                        DispatchQueue.main.async {
+                                            guard let self = self else {
+                                                return
+                                            }
+                                            
+                                            switch result {
+                                            case .success(let image):
+                                                self.avatar.image = image
+                                            case .failure(let error):
+                                                print(error)
+                                            }
+                                        }
+                                       })
         
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(self.avatar!)
+        view.addSubview(self.avatar)
+        avatar.layer.cornerRadius = 75
+        avatar.layer.borderWidth = 1
+        avatar.layer.masksToBounds = true
+        avatar.clipsToBounds = true
+        avatar.contentMode = .scaleAspectFill
+        avatar.layer.borderColor = UIColor.black.cgColor
         
         avatar.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
-        avatar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
-        avatar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -60).isActive = true
+        avatar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 130).isActive = true
+        avatar.widthAnchor.constraint(equalToConstant: 150).isActive = true
         avatar.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(gesture:)))
+        avatar.addGestureRecognizer(tapGesture)
+        avatar.isUserInteractionEnabled = true
     }
     
     private func configureInputs() {
@@ -148,6 +157,8 @@ class UserViewController: UIViewController {
                     UserDatabase().saveUserData(user: user)
                     self.userData = user
                     self.setData()
+                    
+                    
                 case .failure(let error):
                     print(error)
                 }
@@ -177,6 +188,32 @@ class UserViewController: UIViewController {
         }
         // TODO: clean storage
         UserDatabase().removeUser()
+    }
+    
+    @objc
+    private func imageTapped(gesture: UIGestureRecognizer) {
+        if (gesture.view as? UIImageView) != nil {
+            print("Image Tapped")
+            ImagePickerManager().pickImage(self) { image in
+                self.avatar.image = image
+                
+                ProfileRepository().saveAvatar(image: image) {(result) in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let image):
+                            self.userData.image = image
+                            UserDatabase().saveUserData(user: self.userData)
+                            
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    
+                    print(self.userData.image)
+                    UserDatabase().saveUserData(user: self.userData)
+                }
+            }
+        }
     }
     
     private func setData() {

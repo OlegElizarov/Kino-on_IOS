@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 class ProfileRepository {
     private let network = Network()
@@ -25,7 +26,7 @@ class ProfileRepository {
     func signup(username: String, email: String, password: String,
                 completion: @escaping (Result<User, Error>) -> Void) {
         let postParams = "{\"username\": \"\(username)\",\"password\": \"\(password)\" ,\"email\":\"\(email)\"}"
-
+        
         print(postParams, "POSTPARAMS")
         network.doPost(url: "signup", body: postParams) {(result) in
             switch result {
@@ -71,11 +72,11 @@ class ProfileRepository {
             }
         }
     }
-
+    
     func saveSettings(username: String, email: String, password: String,
                       completion: @escaping (Result<User, Error>) -> Void) {
         let postParams = "{\"username\": \"\(username)\",\"password\": \"\(password)\",\"email\":\"\(email)\"}"
-
+        
         print(postParams, "PUT_PARAMS")
         network.doPut(url: "user", body: postParams) {(result) in
             switch result {
@@ -83,6 +84,24 @@ class ProfileRepository {
                 do {
                     let user = try self.decodeUser(data: data)
                     completion(.success(user))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func saveAvatar(image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+        network.doPostMedia(url: "user/image", image: image) {(result) in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let responseBody = try decoder.decode(ResponseBody<String>.self, from: data)
+                    let result: String = responseBody.body
+                    completion(.success(result))
                 } catch let error {
                     completion(.failure(error))
                 }

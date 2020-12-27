@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 
-
 class HomeViewController: UIViewController {
     private struct HomeViewControllerConstants {
         static let bannerHeightMultiplier = CGFloat(0.3)
