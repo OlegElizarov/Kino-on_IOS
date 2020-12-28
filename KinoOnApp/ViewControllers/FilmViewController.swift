@@ -96,7 +96,6 @@ class FilmViewController: UIViewController {
                 case .success(let reviews):
                     let h = self.setUpReviews(reviews: reviews)
                     self.scrollView.contentSize.height += h
-                    print("\(self.scrollView.contentSize.height) \(h)")
                 case .failure(let error):
                     print(error)
                 }

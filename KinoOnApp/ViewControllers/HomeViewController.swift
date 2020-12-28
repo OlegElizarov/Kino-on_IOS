@@ -8,16 +8,37 @@ class HomeViewController: UIViewController {
         static let movieCollectionHeight = CGFloat(297)
     }
 
-    private var items = [FilmBannerInfo(
-            title: "Острые козырьки",
-            description:
-            "Криминальная сага в стиле ретро о банде и ее лютом боссе. Так популярна, что повысила продажи головных уборов.",
-            img: "test_banner_img"),
+    private var items = [
         FilmBannerInfo(
+                id: 6,
+                title: "Убийство в восточном экспрессе",
+                description:
+                "Путешествие на одном из самых роскошных поездов Европы неожиданно превращается в одну из самых стильных и захватывающих загадок в истории.",
+                img: "test_banner_img_1"),
+        FilmBannerInfo(
+                id: 9,
                 title: "Джокер",
                 description:
                 "Готэм, начало 1980-х годов. Комик Артур Флек живет с больной матерью, которая с детства учит его «ходить с улыбкой».",
-                img: "test_banner_img_2")]
+                img: "test_banner_img_2"),
+        FilmBannerInfo(
+                id: 422,
+                title: "Зеленая книга",
+                description:
+                "Утонченный светский лев, богатый и талантливый музыкант нанимает в качестве водителя и телохранителя человека, который менее всего подходит для этой работы.",
+                img: "test_banner_img_3"),
+        FilmBannerInfo(
+                id: 421,
+                title: "Ford против Ferrari",
+                description:
+                "В начале 1960-х Генри Форд II принимает решение улучшить имидж компании и сменить курс на производство более модных автомобилей.",
+                img: "test_banner_img_4"),
+        FilmBannerInfo(
+                id: 5,
+                title: "Твое имя",
+                description:
+                "История о парне из Токио и девушке из провинции, которые обнаруживают, что между ними существует странная и необъяснимая связь.",
+                img: "test_banner_img_5"), ]
 
     private let scrollView = UIScrollView(frame: .zero)
 
@@ -80,10 +101,15 @@ class HomeViewController: UIViewController {
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = bannerView.bounds.size
+        layout.minimumLineSpacing = 0
         bannerView.setCollectionViewLayout(layout, animated: false)
 
-        scrollView.contentSize = CGSize(width: bannerView.bounds.width, height: bannerView.bounds.height)
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+        singleTap.cancelsTouchesInView = false
+        bannerView.isUserInteractionEnabled = true
+        bannerView.addGestureRecognizer(singleTap)
+
+        scrollView.contentSize = CGSize(width: bannerView.frame.width, height: bannerView.frame.height)
     }
 
     func setupMovieCollections(collection: [MovieCollection]) {
@@ -115,6 +141,10 @@ class HomeViewController: UIViewController {
                             + HomeViewControllerConstants.movieCollectionHeight
                             + HomeViewControllerConstants.movieCollectionIndent)
         }
+
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
+                height: scrollView.contentSize.height
+                        - HomeViewControllerConstants.movieCollectionIndent)
     }
 
     @objc
@@ -122,9 +152,12 @@ class HomeViewController: UIViewController {
         if let movieCollection = sender.view as? UICollectionView {
             let tapLocation = sender.location(in: movieCollection)
             if let tapIndexPath = movieCollection.indexPathForItem(at: tapLocation),
-               let tappedCell = movieCollection.cellForItem(at: tapIndexPath),
-               let movieCard = tappedCell as? MovieCardView {
-                self.navigationController?.pushViewController(FilmViewController(filmId: movieCard.getId()), animated: true)
+               let tappedCell = movieCollection.cellForItem(at: tapIndexPath) {
+                if let movieCard = tappedCell as? MovieCardView {
+                    self.navigationController?.pushViewController(FilmViewController(filmId: movieCard.getId()), animated: true)
+                } else if let movieCard = tappedCell as? BannerItemView {
+                    self.navigationController?.pushViewController(FilmViewController(filmId: movieCard.info.id), animated: true)
+                }
             }
         }
     }
@@ -148,5 +181,11 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.setUp(info: self.items[indexPath.item])
 
         return cell
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.bounds.size
     }
 }

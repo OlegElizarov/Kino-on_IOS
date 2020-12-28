@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 struct FilmBannerInfo {
+    var id: Int
     var title: String
     var description: String
     var img: String
