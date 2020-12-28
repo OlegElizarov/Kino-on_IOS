@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class FilmView: UIView {
-    private struct FilmViewConstants {
+    struct FilmViewConstants {
         static let titleHeightMultiplier = CGFloat(0.1)
         static let descHeightMultiplier = CGFloat(0.3)
 
@@ -49,6 +49,7 @@ class FilmView: UIView {
 
     private func setUpDesc(desc: String) {
         self.addSubview(filmDescription)
+
         filmDescription.text = desc
         filmDescription.font = UIFont.systemFont(ofSize: FilmViewConstants.descFontSize)
         filmDescription.textColor = UIColor.black
@@ -65,9 +66,11 @@ class FilmView: UIView {
                 constant: -FilmViewConstants.indent).isActive = true
         filmDescription.topAnchor.constraint(
                 equalTo: self.filmTitle.bottomAnchor, constant: FilmViewConstants.indent).isActive = true
-
         filmDescription.sizeToFit()
         filmDescription.layoutIfNeeded()
+
+        self.bottomAnchor.constraint(equalTo: filmDescription.bottomAnchor).isActive = true
+        self.layoutIfNeeded()
     }
 
     required init?(coder: NSCoder) {

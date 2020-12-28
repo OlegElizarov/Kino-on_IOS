@@ -48,8 +48,7 @@ class HomeViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         scrollView.layoutIfNeeded()
-        print(scrollView.frame)
-        print(view.frame)
+
         setUpBannerView()
 
         MovieCollectionRepository().getHomePageCollection { [weak self] result in
@@ -88,7 +87,7 @@ class HomeViewController: UIViewController {
     }
 
     func setupMovieCollections(collection: [MovieCollection]) {
-        var leadingAnchor = bannerView.bottomAnchor
+        var topAnchor = bannerView.bottomAnchor
 
         for i in 0..<collection.count {
             let movieCollection = MovieCollectionView(frame: .zero)
@@ -101,7 +100,7 @@ class HomeViewController: UIViewController {
 
             NSLayoutConstraint.activate([
                 movieCollection.topAnchor.constraint(
-                        equalTo: leadingAnchor,
+                        equalTo: topAnchor,
                         constant: HomeViewControllerConstants.movieCollectionIndent),
                 movieCollection.leftAnchor.constraint(equalTo: view.leftAnchor),
                 movieCollection.rightAnchor.constraint(equalTo: view.rightAnchor),
@@ -109,7 +108,7 @@ class HomeViewController: UIViewController {
                         equalToConstant: HomeViewControllerConstants.movieCollectionHeight)
             ])
 
-            leadingAnchor = movieCollection.bottomAnchor
+            topAnchor = movieCollection.bottomAnchor
 
             scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
                     height: scrollView.contentSize.height

@@ -15,6 +15,14 @@ class FilmViewController: UIViewController {
     private var trailerButton = UIButton(frame: .zero)
     private let filmRepository = FilmRepository()
 
+    lazy private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        return scrollView
+    }()
+
     lazy private var filmView: FilmView = {
         let filmView = FilmView(frame: .zero)
 
@@ -33,8 +41,16 @@ class FilmViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
-        setUpTitleImage()
-        setUpTrailerButton()
+        view.addSubview(scrollView)
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        scrollView.layoutIfNeeded()
+
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
+                height: setUpTitleImage() +
+                        setUpTrailerButton())
         setUpFilmInfo()
 
         filmRepository.getFilm(id: filmId) { [weak self] result in
@@ -47,6 +63,7 @@ class FilmViewController: UIViewController {
                 case .success(let film):
                     self.trailerUrl = film.trailerUrl
                     self.filmView.setUp(film: film)
+                    self.scrollView.contentSize.height += self.filmView.frame.height
 
                     self.filmRepository.downloadImage(url: film.imgUrl,
                             completion: { [weak self] result in
@@ -68,10 +85,27 @@ class FilmViewController: UIViewController {
                 }
             }
         }
+
+        filmRepository.getReviews(filmId: filmId) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+
+                switch result {
+                case .success(let reviews):
+                    let h = self.setUpReviews(reviews: reviews)
+                    self.scrollView.contentSize.height += h
+                    print("\(self.scrollView.contentSize.height) \(h)")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 
-    private func setUpTitleImage() {
-        self.view.addSubview(titleImage)
+    private func setUpTitleImage() -> CGFloat {
+        self.scrollView.addSubview(titleImage)
 
         titleImage.translatesAutoresizingMaskIntoConstraints = false
         titleImage.contentMode = UIView.ContentMode.scaleAspectFill
@@ -79,15 +113,17 @@ class FilmViewController: UIViewController {
 
         titleImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         titleImage.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        titleImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        titleImage.heightAnchor.constraint(equalTo: self.view.heightAnchor,
+        titleImage.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
+        titleImage.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor,
                 multiplier: FilmViewControllerConstants.imageHeightMultiplier).isActive = true
 
         titleImage.layoutIfNeeded()
+
+        return titleImage.frame.height
     }
 
-    private func setUpTrailerButton() {
-        self.view.addSubview(trailerButton)
+    private func setUpTrailerButton() -> CGFloat {
+        self.scrollView.addSubview(trailerButton)
 
         trailerButton.setTitle("Посмотреть трейлер", for: .normal)
         trailerButton.backgroundColor = .systemBlue
@@ -105,18 +141,49 @@ class FilmViewController: UIViewController {
         trailerButton.heightAnchor.constraint(equalToConstant: FilmViewControllerConstants.buttonHeight).isActive = true
 
         trailerButton.layoutIfNeeded()
+
+        return trailerButton.frame.height
     }
 
     private func setUpFilmInfo() {
-        self.view.addSubview(filmView)
+        self.scrollView.addSubview(filmView)
 
         filmView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         filmView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         filmView.topAnchor.constraint(equalTo: self.trailerButton.bottomAnchor,
                 constant: FilmViewControllerConstants.smallIndent).isActive = true
-        filmView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 
         filmView.layoutIfNeeded()
+    }
+
+    private func setUpReviews(reviews: [Review]) -> CGFloat {
+        var height = CGFloat(0)
+        var topAnchor = filmView.bottomAnchor
+
+        for item in reviews {
+            let rev = ReviewView(frame: .zero)
+
+            self.scrollView.addSubview(rev)
+
+            rev.layer.cornerRadius = FilmViewControllerConstants.radius
+            rev.translatesAutoresizingMaskIntoConstraints = false
+            rev.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+                    constant: FilmView.FilmViewConstants.indent).isActive = true
+            rev.trailingAnchor.constraint(
+                    equalTo: self.view.trailingAnchor,
+                    constant: -FilmView.FilmViewConstants.indent).isActive = true
+            rev.topAnchor.constraint(
+                    equalTo: topAnchor,
+                    constant: FilmView.FilmViewConstants.indent).isActive = true
+            rev.layoutIfNeeded()
+
+            rev.setUp(rev: item)
+            rev.layoutIfNeeded()
+            topAnchor = rev.bottomAnchor
+            height += rev.frame.height + FilmView.FilmViewConstants.indent
+        }
+
+        return height
     }
 
     @objc
@@ -128,7 +195,7 @@ class FilmViewController: UIViewController {
             return
         }
 
-        if UIApplication.shared.canOpenURL(appUrl) == true  {
+        if UIApplication.shared.canOpenURL(appUrl) == true {
             UIApplication.shared.open(appUrl)
         } else {
             UIApplication.shared.open(webUrl)

@@ -35,6 +35,43 @@ class FilmRepository {
         return film
     }
 
+    func getReviews(filmId: Int, completion: @escaping (Result<[Review], Error>) -> Void) {
+        network.doGet(url: "http://64.225.100.179:8080/films/\(filmId)/reviews") { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let reviews = try self.decodeReviews(data: data)
+                    completion(.success(reviews))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func decodeReviews(data: Data) throws -> [Review] {
+        let decoder = JSONDecoder()
+        let responseBody = try decoder.decode(ResponseBody<[ReviewJson]>.self, from: data)
+        var result: [Review] = []
+
+        for item in responseBody.body {
+            let rev = Review()
+
+            rev.id = item.id
+            rev.body = item.body
+            rev.rating = item.rating
+            rev.productId = item.productId
+            rev.userId = item.userId
+            rev.user.username = item.user.username
+
+            result.append(rev)
+        }
+
+        return result
+    }
+
     func downloadImage(url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
         var url = url
         if !url.starts(with: "http") {
