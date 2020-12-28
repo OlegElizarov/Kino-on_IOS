@@ -77,4 +77,8 @@ class MovieCardView: UICollectionViewCell {
             movieNameLabel.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
     }
+
+    func getId() -> Int {
+        return self.id
+    }
 }

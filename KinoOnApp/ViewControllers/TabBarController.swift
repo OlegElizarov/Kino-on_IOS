@@ -31,7 +31,8 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
+
         let homeTab = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         self.homeController.tabBarItem = homeTab
         

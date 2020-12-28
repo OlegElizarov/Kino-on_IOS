@@ -73,9 +73,9 @@ class FilmViewController: UIViewController {
     private func setUpTitleImage() {
         self.view.addSubview(titleImage)
 
-        titleImage.contentMode = UIView.ContentMode.scaleAspectFill
-        titleImage.layer.cornerRadius = FilmViewControllerConstants.radius
         titleImage.translatesAutoresizingMaskIntoConstraints = false
+        titleImage.contentMode = UIView.ContentMode.scaleAspectFill
+        titleImage.clipsToBounds = true
 
         titleImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         titleImage.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -89,7 +89,7 @@ class FilmViewController: UIViewController {
     private func setUpTrailerButton() {
         self.view.addSubview(trailerButton)
 
-        trailerButton.setTitle("Watch trailer", for: .normal)
+        trailerButton.setTitle("Посмотреть трейлер", for: .normal)
         trailerButton.backgroundColor = .systemBlue
         trailerButton.layer.cornerRadius = FilmViewControllerConstants.radius
 

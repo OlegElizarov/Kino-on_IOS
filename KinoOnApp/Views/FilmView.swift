@@ -7,11 +7,11 @@ class FilmView: UIView {
         static let descHeightMultiplier = CGFloat(0.3)
 
         static let filmTitleTopAnchorIndent = CGFloat(10)
-        static let sideIndent = CGFloat(10)
+        static let indent = CGFloat(10)
 
         static let descFontSize = CGFloat(16)
         static let titleFontSize = CGFloat(24)
-        static let descLines = 10
+        static let descLines = 0
     }
 
     private var filmTitle = UILabel()
@@ -38,9 +38,9 @@ class FilmView: UIView {
         filmTitle.translatesAutoresizingMaskIntoConstraints = false
 
         filmTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor,
-                constant: FilmViewConstants.sideIndent).isActive = true
+                constant: FilmViewConstants.indent).isActive = true
         filmTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                constant: -FilmViewConstants.sideIndent).isActive = true
+                constant: -FilmViewConstants.indent).isActive = true
         filmTitle.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         filmTitle.bottomAnchor.constraint(equalTo: self.filmTitle.topAnchor,
                 constant: FilmViewConstants.titleFontSize).isActive = true
@@ -49,7 +49,6 @@ class FilmView: UIView {
 
     private func setUpDesc(desc: String) {
         self.addSubview(filmDescription)
-
         filmDescription.text = desc
         filmDescription.font = UIFont.systemFont(ofSize: FilmViewConstants.descFontSize)
         filmDescription.textColor = UIColor.black
@@ -60,16 +59,14 @@ class FilmView: UIView {
 
         filmDescription.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
-                constant: FilmViewConstants.sideIndent).isActive = true
+                constant: FilmViewConstants.indent).isActive = true
         filmDescription.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor,
-                constant: -FilmViewConstants.sideIndent).isActive = true
+                constant: -FilmViewConstants.indent).isActive = true
         filmDescription.topAnchor.constraint(
-                equalTo: self.filmTitle.bottomAnchor).isActive = true
-        filmDescription.bottomAnchor.constraint(
-                equalTo: self.filmDescription.topAnchor,
-                constant: FilmViewConstants.descFontSize * CGFloat(FilmViewConstants.descLines)).isActive = true
+                equalTo: self.filmTitle.bottomAnchor, constant: FilmViewConstants.indent).isActive = true
 
+        filmDescription.sizeToFit()
         filmDescription.layoutIfNeeded()
     }
 

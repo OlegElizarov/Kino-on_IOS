@@ -5,8 +5,9 @@ class MovieCollectionView: UICollectionViewCell {
     
     private let collectionNameLabel = UILabel()
     private let showMoreLabel = UILabel()
-    var collection: MovieCollection!
-    
+    private var collection: MovieCollection!
+    private var tapRecognizer: UIGestureRecognizer!
+
     lazy private var moviesCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         
@@ -31,8 +32,13 @@ class MovieCollectionView: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fill(data: MovieCollection) {
+    func fill(data: MovieCollection, action: UIGestureRecognizer) {
         collection = data
+        tapRecognizer = action
+
+        moviesCollectionView.isUserInteractionEnabled = true
+        moviesCollectionView.addGestureRecognizer(tapRecognizer)
+
         collectionNameLabel.text = collection.name
     }
     
@@ -47,17 +53,17 @@ class MovieCollectionView: UICollectionViewCell {
             collectionNameLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20)
         ])
         
-        showMoreLabel.text = "ЕЩЕ"
-        showMoreLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
-        showMoreLabel.textColor = UIColor(red: 15/255, green: 76/255, blue: 129/255, alpha: 1)
-        
-        showMoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(showMoreLabel)
-        
-        NSLayoutConstraint.activate([
-            showMoreLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 7),
-            showMoreLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -17)
-        ])
+//        showMoreLabel.text = "ЕЩЕ"
+//        showMoreLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
+//        showMoreLabel.textColor = UIColor(red: 15/255, green: 76/255, blue: 129/255, alpha: 1)
+//
+//        showMoreLabel.translatesAutoresizingMaskIntoConstraints = false
+//        self.addSubview(showMoreLabel)
+//
+//        NSLayoutConstraint.activate([
+//            showMoreLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 7),
+//            showMoreLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -17)
+//        ])
     }
     
     func setupMovieCollection() {
@@ -91,7 +97,7 @@ extension MovieCollectionView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCard", for: indexPath) as? MovieCardView else {
             return UICollectionViewCell()
         }
-        
+
         cell.fillCell(model: self.collection.movies[indexPath.item])
         return cell
     }

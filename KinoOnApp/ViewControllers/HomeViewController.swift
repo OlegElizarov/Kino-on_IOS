@@ -3,7 +3,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     private struct HomeViewControllerConstants {
-        static let bannerHeightMultiplier = CGFloat(0.3)
+        static let bannerHeightMultiplier = CGFloat(0.35)
         static let movieCollectionIndent = CGFloat(30)
         static let movieCollectionHeight = CGFloat(297)
     }
@@ -38,8 +38,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "KINO|ON"
-
         view.addSubview(scrollView)
+
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -48,7 +48,8 @@ class HomeViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         scrollView.layoutIfNeeded()
-
+        print(scrollView.frame)
+        print(view.frame)
         setUpBannerView()
 
         MovieCollectionRepository().getHomePageCollection { [weak self] result in
@@ -91,15 +92,12 @@ class HomeViewController: UIViewController {
 
         for i in 0..<collection.count {
             let movieCollection = MovieCollectionView(frame: .zero)
-
-            movieCollection.fill(data: collection[i])
+            let singleTap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+            singleTap.cancelsTouchesInView = false
+            movieCollection.fill(data: collection[i], action: singleTap)
 
             scrollView.addSubview(movieCollection)
             movieCollection.translatesAutoresizingMaskIntoConstraints = false
-
-            let singleTap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
-            movieCollection.isUserInteractionEnabled = true
-            movieCollection.addGestureRecognizer(singleTap)
 
             NSLayoutConstraint.activate([
                 movieCollection.topAnchor.constraint(
@@ -115,13 +113,21 @@ class HomeViewController: UIViewController {
 
             scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
                     height: scrollView.contentSize.height
-                            + HomeViewControllerConstants.movieCollectionHeight)
+                            + HomeViewControllerConstants.movieCollectionHeight
+                            + HomeViewControllerConstants.movieCollectionIndent)
         }
     }
 
     @objc
-    private func tapDetected() {
-        self.navigationController?.pushViewController(FilmViewController(filmId: 2), animated: true)
+    private func tapDetected(sender: UITapGestureRecognizer) {
+        if let movieCollection = sender.view as? UICollectionView {
+            let tapLocation = sender.location(in: movieCollection)
+            if let tapIndexPath = movieCollection.indexPathForItem(at: tapLocation),
+               let tappedCell = movieCollection.cellForItem(at: tapIndexPath),
+               let movieCard = tappedCell as? MovieCardView {
+                self.navigationController?.pushViewController(FilmViewController(filmId: movieCard.getId()), animated: true)
+            }
+        }
     }
 }
 
