@@ -7,12 +7,15 @@ class FilmViewController: UIViewController {
         static let buttonHeight = CGFloat(40)
         static let smallIndent = CGFloat(10)
         static let radius = CGFloat(12)
+        static let inputHeight = CGFloat(50)
     }
 
     private let filmId: Int
     private var trailerUrl: String
+    private var lastReviewBottomAnchor: NSLayoutYAxisAnchor?
     private var titleImage = UIImageView(frame: .zero)
     private var trailerButton = UIButton(frame: .zero)
+    private var inputButton = UIButton(frame: .zero)
     private let filmRepository = FilmRepository()
 
     lazy private var scrollView: UIScrollView = {
@@ -31,6 +34,18 @@ class FilmViewController: UIViewController {
         return filmView
     }()
 
+    lazy private var commentInput: UITextField = {
+        let input = UITextField(frame: .zero)
+
+        input.translatesAutoresizingMaskIntoConstraints = false
+        input.borderStyle = .roundedRect
+        input.placeholder = "Добавить отзыв"
+        input.autocorrectionType = .no
+        input.returnKeyType = .next
+
+        return input
+    }()
+
     init(filmId: Int) {
         self.filmId = filmId
         self.trailerUrl = ""
@@ -45,7 +60,8 @@ class FilmViewController: UIViewController {
         scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -FilmViewControllerConstants.inputHeight).isActive = true
         scrollView.layoutIfNeeded()
 
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width,
@@ -64,6 +80,10 @@ class FilmViewController: UIViewController {
                     self.trailerUrl = film.trailerUrl
                     self.filmView.setUp(film: film)
                     self.scrollView.contentSize.height += self.filmView.frame.height
+
+                    if self.lastReviewBottomAnchor == nil {
+                        self.lastReviewBottomAnchor = self.filmView.bottomAnchor
+                    }
 
                     self.filmRepository.downloadImage(url: film.imgUrl,
                             completion: { [weak self] result in
@@ -94,13 +114,16 @@ class FilmViewController: UIViewController {
 
                 switch result {
                 case .success(let reviews):
-                    let h = self.setUpReviews(reviews: reviews)
+                    let h = self.setUpReviews(reviews: reviews, topAnchor: self.filmView.bottomAnchor)
                     self.scrollView.contentSize.height += h
                 case .failure(let error):
                     print(error)
                 }
             }
         }
+
+        setUpCommentInput()
+        setUpInputButton()
     }
 
     private func setUpTitleImage() -> CGFloat {
@@ -155,9 +178,9 @@ class FilmViewController: UIViewController {
         filmView.layoutIfNeeded()
     }
 
-    private func setUpReviews(reviews: [Review]) -> CGFloat {
+    private func setUpReviews(reviews: [Review], topAnchor: NSLayoutYAxisAnchor) -> CGFloat {
         var height = CGFloat(0)
-        var topAnchor = filmView.bottomAnchor
+        var topAnchor = topAnchor
 
         for item in reviews {
             let rev = ReviewView(frame: .zero)
@@ -177,12 +200,45 @@ class FilmViewController: UIViewController {
             rev.layoutIfNeeded()
 
             rev.setUp(rev: item)
+
             rev.layoutIfNeeded()
             topAnchor = rev.bottomAnchor
             height += rev.frame.height + FilmView.FilmViewConstants.indent
+
+            self.lastReviewBottomAnchor = rev.bottomAnchor
         }
 
         return height
+    }
+
+    private func setUpCommentInput() {
+        self.view.addSubview(commentInput)
+
+        commentInput.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        commentInput.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+                constant: -FilmViewControllerConstants.inputHeight).isActive = true
+        commentInput.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        commentInput.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        commentInput.layoutIfNeeded()
+    }
+
+    private func setUpInputButton() {
+        self.view.addSubview(inputButton)
+
+        inputButton.backgroundColor = .systemBlue
+        let img = UIImage(systemName: "arrow.up")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+
+        inputButton.setImage(img, for: .normal)
+        inputButton.translatesAutoresizingMaskIntoConstraints = false
+
+        inputButton.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,
+                constant: -FilmViewControllerConstants.inputHeight).isActive = true
+        inputButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        inputButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        inputButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        inputButton.layoutIfNeeded()
+
+        inputButton.addTarget(self, action: #selector(commentInputDetected), for: .touchUpInside)
     }
 
     @objc
@@ -198,6 +254,18 @@ class FilmViewController: UIViewController {
             UIApplication.shared.open(appUrl)
         } else {
             UIApplication.shared.open(webUrl)
+        }
+    }
+
+    @objc
+    private func commentInputDetected() {
+        if let text = commentInput.text, let anchor = self.lastReviewBottomAnchor {
+            let rev = Review()
+            rev.rating = 10
+            rev.body = text
+            rev.user.username = "test"
+
+            scrollView.contentSize.height += setUpReviews(reviews: [rev], topAnchor: anchor)
         }
     }
 
