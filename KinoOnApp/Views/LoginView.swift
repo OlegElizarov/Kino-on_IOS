@@ -1,6 +1,6 @@
 import UIKit
 
-enum StateProfileController {
+enum StateLoginController {
     case login
     case signup
 }
@@ -27,7 +27,7 @@ class PageTypeLable: UILabel {
     }
 }
 
-class LoginButton: UIButton {
+class SubmitButton: UIButton {
     init(text: String) {
         super.init(frame: .zero)
         self.backgroundColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
@@ -45,7 +45,8 @@ class ToggleButton: UIButton {
 
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
-        self.setTitleColor(.red, for: .normal)
+        self.titleLabel?.font = self.titleLabel?.font.withSize(30.0)
+//        self.setTitleColor(.red, for: .normal)
         self.addTarget(self, action: #selector(self.toggle), for: .touchUpInside)
     }
     
@@ -60,11 +61,15 @@ class ToggleButton: UIButton {
     func toggle(_ sender: UIButton!) {
         isChecked = !isChecked
         if isChecked {
-            sender.setTitle("✓", for: .normal)
-            sender.setTitleColor(.green, for: .normal)
+//            sender.setTitle("✓", for: .normal)
+            sender.setTitle("🙉", for: .normal)
+
+//            sender.setTitleColor(.green, for: .normal)
         } else {
-            sender.setTitle("X", for: .normal)
-            sender.setTitleColor(.red, for: .normal)
+//            sender.setTitle("X", for: .normal)
+            sender.setTitle("🙈", for: .normal)
+
+//            sender.setTitleColor(.red, for: .normal)
         }
         self.callback(isChecked)
     }
@@ -76,11 +81,6 @@ enum TypesTextFieldRightButtons {
 }
 
 class InputField: UITextField {
-//    init(text: String) {
-//        super.init(frame: .zero)
-//        self.placeholder = text
-//        createBorder()
-//    }
     
     init(text: String, typeRightButton: TypesTextFieldRightButtons? = nil) {
         super.init(frame: .zero)
@@ -91,7 +91,7 @@ class InputField: UITextField {
         case .authorize:
             self.isSecureTextEntry = true
             self.rightViewMode = .always
-            let toggleButton = ToggleButton(title: "X", callback: setVisibility(isVisible:))
+            let toggleButton = ToggleButton(title: "🙈", callback: setVisibility(isVisible:))
             self.rightView = toggleButton
             // прибивка направо
         case .settings:

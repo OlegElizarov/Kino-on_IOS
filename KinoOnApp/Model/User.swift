@@ -5,6 +5,5 @@ struct User: Codable {
     let username: String
     let email: String
     let password: String
-    let image: String
-    
+    var image: String
 }

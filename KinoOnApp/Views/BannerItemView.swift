@@ -1,17 +1,17 @@
 import Foundation
 import UIKit
 
-struct BannerItemViewConstants {
-    static let sideIndent = CGFloat(10)
-    static let descFontSize = CGFloat(12)
-    static let titleFontSize = CGFloat(24)
-    static let descLines = 4
-    static let descBottomIndent = CGFloat(-20)
-    static let descHeightMultiplier = CGFloat(0.2)
-    static let titleHeightMutliplier = CGFloat(0.1)
-}
-
 class BannerItemView: UICollectionViewCell {
+    private struct BannerItemViewConstants {
+        static let sideIndent = CGFloat(10)
+        static let descFontSize = CGFloat(12)
+        static let titleFontSize = CGFloat(24)
+        static let descLines = 4
+        static let descBottomIndent = CGFloat(20)
+        static let descHeightMultiplier = CGFloat(0.2)
+        static let titleHeightMultiplier = CGFloat(0.1)
+    }
+    
     private var filmTitle = UILabel()
     private var filmDescription =  UILabel()
     lazy private var backgroundImage: UIImageView = {
@@ -68,7 +68,7 @@ class BannerItemView: UICollectionViewCell {
             constant: BannerItemViewConstants.sideIndent).isActive = true
         filmDescription.bottomAnchor.constraint(
             equalTo: self.bottomAnchor,
-            constant: BannerItemViewConstants.descBottomIndent).isActive = true
+            constant: -BannerItemViewConstants.descBottomIndent).isActive = true
         filmDescription.heightAnchor.constraint(
             equalTo: self.heightAnchor,
             multiplier: BannerItemViewConstants.descHeightMultiplier).isActive = true
@@ -95,7 +95,7 @@ class BannerItemView: UICollectionViewCell {
             equalTo: self.filmDescription.topAnchor).isActive = true
         filmTitle.heightAnchor.constraint(
             equalTo: self.heightAnchor,
-            multiplier: BannerItemViewConstants.titleHeightMutliplier).isActive = true
+            multiplier: BannerItemViewConstants.titleHeightMultiplier).isActive = true
         
         filmTitle.layoutIfNeeded()
     }

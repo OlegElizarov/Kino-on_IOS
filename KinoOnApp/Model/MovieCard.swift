@@ -1,10 +1,18 @@
 import Foundation
+import UIKit
 
-struct MovieCard {
-    let id: Int
-    let name: String
-    let ageLimit: Int
-    let image: String
+class MovieCard {
+    var id: Int
+    var name: String
+    var ageLimit: Int
+    var image: UIImage
+
+    init() {
+        id = 0
+        name = ""
+        ageLimit = 0
+        image = UIImage()
+    }
 }
 
 struct MovieCardJson: Codable {
@@ -12,14 +20,14 @@ struct MovieCardJson: Codable {
     var name: String
     var ageLimit: Int
     var image: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name = "russianName"
         case ageLimit
         case image
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
@@ -27,7 +35,7 @@ struct MovieCardJson: Codable {
         ageLimit = try container.decode(Int.self, forKey: .ageLimit)
         image = try container.decode(String.self, forKey: .image)
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)

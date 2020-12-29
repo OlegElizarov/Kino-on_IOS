@@ -1,34 +1,27 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-//    lazy private var loginView: LoginViewController = {
-//        return LoginViewController()
-//    }()
-//    
-//    override func viewDidLoad() {
-//        print("rtgtrttttttt")
-//        self.show(loginView, sender: loginView)
-//    }
-    //test
+    // test
     var testUser: User = User(id: 0, username: "testUser", email: "test", password: "123", image: "")
     
     private var loginField: InputField!
     private var passwordField: InputField!
     private var repPasswordField: InputField!
-    private var loginButton: LoginButton!
+    private var loginButton: SubmitButton!
     private var profileLabel: ProfileLable!
     private var loginLabel: PageTypeLable!
     private var signUpLabel: PageTypeLable!
     private var logTopPass: NSLayoutConstraint!
     private var logTopRep: NSLayoutConstraint!
     private var hello: UILabel!
-    private var state: StateProfileController = .login
+    private var state: StateLoginController = .login
     private var isChecked = false
+    var parentController: TabBarController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
+        modalTransitionStyle = .flipHorizontal
         configureLabel()
         configureTypePage()
         configureInputs()
@@ -36,20 +29,6 @@ class ProfileViewController: UIViewController {
         configureMessageLabel()
         
         setup()
-    }
-    
-    @objc
-    func toggle(_ sender: UIButton!) {
-        isChecked = !isChecked
-        if isChecked {
-            sender.setTitle("✓", for: .normal)
-            sender.setTitleColor(.green, for: .normal)
-            passwordField.isSecureTextEntry.toggle()
-        } else {
-            sender.setTitle("X", for: .normal)
-            sender.setTitleColor(.red, for: .normal)
-            passwordField.isSecureTextEntry.toggle()
-        }
     }
     
     @objc
@@ -65,11 +44,16 @@ class ProfileViewController: UIViewController {
                             DispatchQueue.main.async {
                                 switch result {
                                 case .success(let user):
-                                    print(user, "TRUE USER")
+                                    UserDatabase().saveUserData(user: user)
                                     self.testUser = user
                                     self.hello.text = "Hello \(self.testUser.email) , \(self.testUser.image)"
-                                    
-                                    self.navigationController!.pushViewController(HomeViewController(), animated: true)
+                                    let controller = UserViewController()
+                                    controller.modalTransitionStyle = .flipHorizontal
+
+                                    self.navigationController!.pushViewController(controller, animated: true)
+                                    let newController = UserViewController()
+                                    newController.parentController = self.parentController
+                                    self.parentController.changeItemController(newController: newController)
                                     
                                 case .failure(let error):
                                     print(error)
@@ -88,24 +72,34 @@ class ProfileViewController: UIViewController {
             return
             
         case .signup:
-            ProfileRepository().logout {(result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data):
-                        print(data)
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            }
+            
             if passwordField.text != repPasswordField.text {
                 hello.text = "Passwords do not match!"
                 return
             }
             if loginField.text == testUser.email {
-                hello.text = "User alredy exists"
+                hello.text = "Already login"
             } else {
-                hello.text = "Meet our new friend => mister \(loginField.text!) !"
+                ProfileRepository().signup(username: loginField.text!,
+                                           email: loginField.text!+"@list.ru",
+                                           password: passwordField.text!) {(result) in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let data):
+                            print(data)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+                UserDatabase().saveUserData(user: User(id: 0, username: loginField.text!,
+                                                       email: loginField.text!+"@list.ru",
+                                                       password: passwordField.text!, image: ""))
+                let controller = UserViewController()
+                self.navigationController!.pushViewController(controller, animated: true)
+                let newController = UserViewController()
+                newController.parentController = self.parentController
+                self.parentController.changeItemController(newController: newController)
             }
             return
             
@@ -246,7 +240,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureLoginButton() {
-        loginButton = LoginButton(text: "ВОЙТИ")
+        loginButton = SubmitButton(text: "ВОЙТИ")
         loginButton.addTarget(self, action: #selector(loginButtonAction), for: .touchUpInside)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton!)
