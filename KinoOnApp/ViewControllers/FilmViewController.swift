@@ -17,6 +17,7 @@ class FilmViewController: UIViewController {
     private var trailerButton = UIButton(frame: .zero)
     private var inputButton = UIButton(frame: .zero)
     private let filmRepository = FilmRepository()
+    private let userDatabase = UserDatabase()
 
     lazy private var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -122,8 +123,10 @@ class FilmViewController: UIViewController {
             }
         }
 
-        setUpCommentInput()
-        setUpInputButton()
+        if userDatabase.getUserData() != nil {
+            setUpCommentInput()
+            setUpInputButton()
+        }
     }
 
     private func setUpTitleImage() -> CGFloat {
@@ -259,13 +262,18 @@ class FilmViewController: UIViewController {
 
     @objc
     private func commentInputDetected() {
-        if let text = commentInput.text, let anchor = self.lastReviewBottomAnchor {
+        if let text = commentInput.text,
+           let anchor = self.lastReviewBottomAnchor,
+           let user = self.userDatabase.getUserData() {
             let rev = Review()
             rev.rating = 10
             rev.body = text
-            rev.user.username = "test"
+            rev.user.username = user.username
+            rev.userId = user.id
+            rev.productId = self.filmId
 
             scrollView.contentSize.height += setUpReviews(reviews: [rev], topAnchor: anchor)
+            filmRepository.postReview(rev: rev)
         }
     }
 

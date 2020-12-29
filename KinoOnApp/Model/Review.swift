@@ -7,7 +7,7 @@ class UserInfo {
 
 class Review {
     var id: Int = 0
-    var rating: Float = 0
+    var rating: Int = 0
     var body: String = ""
     var userId: Int = 0
     var productId: Int = 0
@@ -21,7 +21,7 @@ class UserInfoJson: Codable {
 
 class ReviewJson: Codable {
     var id: Int
-    var rating: Float
+    var rating: Int
     var body: String
     var userId: Int
     var productId: Int

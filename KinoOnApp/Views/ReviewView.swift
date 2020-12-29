@@ -46,12 +46,12 @@ class ReviewView: UIView {
         username.layoutIfNeeded()
     }
 
-    private func setUpRating(value: Float) {
+    private func setUpRating(value: Int) {
         self.addSubview(rating)
 
-        if value >= 7.0 {
+        if value >= 7 {
             rating.backgroundColor = .green
-        } else if value >= 4.0 {
+        } else if value >= 4 {
             rating.backgroundColor = .yellow
         } else if value > 0 {
             rating.backgroundColor = .red

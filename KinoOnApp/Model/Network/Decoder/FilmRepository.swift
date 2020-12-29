@@ -51,6 +51,20 @@ class FilmRepository {
         }
     }
 
+    public func postReview(rev: Review) {
+        let url = "films/\(rev.productId)/reviews"
+        let body = "{\"rating\": \(rev.rating),\"body\": \"\(rev.body)\"}"
+
+        network.doPost(url: url, body: body) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(_):
+                print("ok")
+            }
+        }
+    }
+
     private func decodeReviews(data: Data) throws -> [Review] {
         let decoder = JSONDecoder()
         let responseBody = try decoder.decode(ResponseBody<[ReviewJson]>.self, from: data)
