@@ -36,6 +36,22 @@
 		D9D708F3DB80D7E439310269 /* FilmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D70931AEE45CB4EAA1CB88 /* FilmRepository.swift */; };
 		D9D70939F9AE564F96032244 /* FilmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D70822C49BC6F517D04FD7 /* FilmViewController.swift */; };
 		D9D70D07F0E99D421C38CAB7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D701522F1B89861194AD82 /* Review.swift */; };
+		CE83C1D6257FEFDE00174D61 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1D5257FEFDE00174D61 /* CatalogViewController.swift */; };
+		CE83C1E4258003D400174D61 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1DA258003D400174D61 /* OpenSans-Bold.ttf */; };
+		CE83C1E5258003D400174D61 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1DB258003D400174D61 /* OpenSans-Light.ttf */; };
+		CE83C1E6258003D400174D61 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1DC258003D400174D61 /* Montserrat-SemiBold.ttf */; };
+		CE83C1E7258003D400174D61 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1DD258003D400174D61 /* Montserrat-Bold.ttf */; };
+		CE83C1E8258003D400174D61 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1DE258003D400174D61 /* OpenSans-SemiBold.ttf */; };
+		CE83C1E9258003D400174D61 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1DF258003D400174D61 /* Montserrat-Light.ttf */; };
+		CE83C1EA258003D400174D61 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E0258003D400174D61 /* Roboto-Regular.ttf */; };
+		CE83C1EB258003D400174D61 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E1258003D400174D61 /* Montserrat-Regular.ttf */; };
+		CE83C1EC258003D400174D61 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E2258003D400174D61 /* OpenSans-Regular.ttf */; };
+		CE83C1ED258003D400174D61 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE83C1E3258003D400174D61 /* Montserrat-Medium.ttf */; };
+		CE83C1F8258EB2F900174D61 /* FilterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1F7258EB2F900174D61 /* FilterItem.swift */; };
+		CE83C1FB258EB54500174D61 /* FilterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1FA258EB54500174D61 /* FilterRepository.swift */; };
+		CE83C1FE258EB5C100174D61 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C1FD258EB5C100174D61 /* Filters.swift */; };
+		CE83C201258EBFCC00174D61 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C200258EBFCC00174D61 /* ContentType.swift */; };
+		CE83C204258EC67E00174D61 /* FilterButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C203258EC67E00174D61 /* FilterButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +86,22 @@
 		D9D70822C49BC6F517D04FD7 /* FilmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilmViewController.swift; sourceTree = "<group>"; };
 		D9D708A6F07C1E3968D17163 /* ReviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		D9D70931AEE45CB4EAA1CB88 /* FilmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilmRepository.swift; sourceTree = "<group>"; };
+		CE83C1D5257FEFDE00174D61 /* CatalogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		CE83C1DA258003D400174D61 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		CE83C1DB258003D400174D61 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		CE83C1DC258003D400174D61 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		CE83C1DD258003D400174D61 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		CE83C1DE258003D400174D61 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		CE83C1DF258003D400174D61 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		CE83C1E0258003D400174D61 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		CE83C1E1258003D400174D61 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		CE83C1E2258003D400174D61 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		CE83C1E3258003D400174D61 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		CE83C1F7258EB2F900174D61 /* FilterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItem.swift; sourceTree = "<group>"; };
+		CE83C1FA258EB54500174D61 /* FilterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRepository.swift; sourceTree = "<group>"; };
+		CE83C1FD258EB5C100174D61 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		CE83C200258EBFCC00174D61 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		CE83C203258EC67E00174D61 /* FilterButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +121,7 @@
 				5CD5813A256AF0B100066A8C /* MovieCollectionRepository.swift */,
 				72E893EE25715AC500E69044 /* ProfileRepository.swift */,
 				D9D70931AEE45CB4EAA1CB88 /* FilmRepository.swift */,
+				CE83C1FA258EB54500174D61 /* FilterRepository.swift */,
 			);
 			path = Decoder;
 			sourceTree = "<group>";
@@ -109,6 +142,7 @@
 				5C5155782544DEA800FDCF76 /* BannerItemView.swift */,
 				5CE901232555FF1100B937EB /* LoginView.swift */,
 				D9D706708CE901DD6C6681F5 /* FilmView.swift */,
+				CE83C203258EC67E00174D61 /* FilterButtonView.swift */,
 				D9D708A6F07C1E3968D17163 /* ReviewView.swift */,
 			);
 			path = Views;
@@ -117,6 +151,7 @@
 		5C51550125432F6400FDCF76 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE83C1D5257FEFDE00174D61 /* CatalogViewController.swift */,
 				5C515512254371C000FDCF76 /* HomeViewController.swift */,
 				5CE63FE12555DECC007981ED /* TabBarController.swift */,
 				5CE9011D2555FE3200B937EB /* ProfileViewController.swift */,
@@ -129,6 +164,7 @@
 		5C5155042543303C00FDCF76 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE83C1D92580033600174D61 /* Fonts */,
 				72CF4A77252B3B35003C44BB /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -146,6 +182,9 @@
 				5CE901202555FE8000B937EB /* User.swift */,
 				5C385751257140FB000E993E /* ResponseBody.swift */,
 				D9D701522F1B89861194AD82 /* Review.swift */,
+				CE83C1F7258EB2F900174D61 /* FilterItem.swift */,
+				CE83C1FD258EB5C100174D61 /* Filters.swift */,
+				CE83C200258EBFCC00174D61 /* ContentType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +263,23 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		CE83C1D92580033600174D61 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CE83C1DD258003D400174D61 /* Montserrat-Bold.ttf */,
+				CE83C1DF258003D400174D61 /* Montserrat-Light.ttf */,
+				CE83C1E3258003D400174D61 /* Montserrat-Medium.ttf */,
+				CE83C1E1258003D400174D61 /* Montserrat-Regular.ttf */,
+				CE83C1DC258003D400174D61 /* Montserrat-SemiBold.ttf */,
+				CE83C1DA258003D400174D61 /* OpenSans-Bold.ttf */,
+				CE83C1DB258003D400174D61 /* OpenSans-Light.ttf */,
+				CE83C1E2258003D400174D61 /* OpenSans-Regular.ttf */,
+				CE83C1DE258003D400174D61 /* OpenSans-SemiBold.ttf */,
+				CE83C1E0258003D400174D61 /* Roboto-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,8 +338,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE83C1EB258003D400174D61 /* Montserrat-Regular.ttf in Resources */,
+				CE83C1E9258003D400174D61 /* Montserrat-Light.ttf in Resources */,
+				CE83C1E6258003D400174D61 /* Montserrat-SemiBold.ttf in Resources */,
 				5CE63FDF2555BEFA007981ED /* .swiftlint.yml in Resources */,
+				CE83C1E8258003D400174D61 /* OpenSans-SemiBold.ttf in Resources */,
+				CE83C1E4258003D400174D61 /* OpenSans-Bold.ttf in Resources */,
 				72CF4A7B252B3B35003C44BB /* LaunchScreen.storyboard in Resources */,
+				CE83C1E7258003D400174D61 /* Montserrat-Bold.ttf in Resources */,
+				CE83C1EA258003D400174D61 /* Roboto-Regular.ttf in Resources */,
+				CE83C1EC258003D400174D61 /* OpenSans-Regular.ttf in Resources */,
+				CE83C1E5258003D400174D61 /* OpenSans-Light.ttf in Resources */,
+				CE83C1ED258003D400174D61 /* Montserrat-Medium.ttf in Resources */,
 				72CF4A78252B3B35003C44BB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,15 +383,21 @@
 			files = (
 				5C5155302544BED100FDCF76 /* SceneDelegate.swift in Sources */,
 				5C5155792544DEA800FDCF76 /* BannerItemView.swift in Sources */,
+				CE83C1D6257FEFDE00174D61 /* CatalogViewController.swift in Sources */,
 				5C3857552571413A000E993E /* Network.swift in Sources */,
+				CE83C201258EBFCC00174D61 /* ContentType.swift in Sources */,
 				5C515513254371C000FDCF76 /* HomeViewController.swift in Sources */,
+				CE83C204258EC67E00174D61 /* FilterButtonView.swift in Sources */,
 				5C385752257140FB000E993E /* ResponseBody.swift in Sources */,
 				5CE901242555FF1100B937EB /* LoginView.swift in Sources */,
 				5CE63FE22555DECD007981ED /* TabBarController.swift in Sources */,
 				CE4EF7082561668F00D77C6E /* MovieCardView.swift in Sources */,
 				5CD5813B256AF0B100066A8C /* MovieCollectionRepository.swift in Sources */,
 				CE4EF7092561668F00D77C6E /* MovieCollectionView.swift in Sources */,
+				CE83C1F8258EB2F900174D61 /* FilterItem.swift in Sources */,
 				5CE901212555FE8000B937EB /* User.swift in Sources */,
+				CE83C1FB258EB54500174D61 /* FilterRepository.swift in Sources */,
+				CE83C1FE258EB5C100174D61 /* Filters.swift in Sources */,
 				5CE9011E2555FE3200B937EB /* ProfileViewController.swift in Sources */,
 				72E893EF25715AC500E69044 /* ProfileRepository.swift in Sources */,
 				CE4EF7042561667A00D77C6E /* MovieCard.swift in Sources */,
