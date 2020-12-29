@@ -54,7 +54,7 @@ class BannerItemView: UICollectionViewCell {
         self.addSubview(filmTitle)
 
         filmTitle.text = info.title
-        filmTitle.font = UIFont.systemFont(ofSize: BannerItemViewConstants.titleFontSize)
+        filmTitle.font = UIFont(name: "Roboto-Regular", size: BannerItemViewConstants.titleFontSize)
         filmTitle.textColor = .white
         filmTitle.adjustsFontSizeToFitWidth = false
         filmTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ class BannerItemView: UICollectionViewCell {
         self.addSubview(filmDescription)
 
         filmDescription.text = info.description
-        filmDescription.font = UIFont.systemFont(ofSize: BannerItemViewConstants.descFontSize)
+        filmDescription.font = UIFont(name: "Roboto-Regular", size: BannerItemViewConstants.descFontSize)
         filmDescription.textColor = UIColor.white
         filmDescription.adjustsFontSizeToFitWidth = false
         filmDescription.translatesAutoresizingMaskIntoConstraints = false

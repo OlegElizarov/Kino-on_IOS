@@ -30,7 +30,7 @@ class ReviewView: UIView {
         self.addSubview(username)
 
         username.text = "@\(text)"
-        username.font = UIFont.systemFont(ofSize: ReviewViewConstants.fontSize)
+        username.font = UIFont(name: "Roboto-Regular", size: ReviewViewConstants.fontSize)
         username.textColor = UIColor.black
         username.adjustsFontSizeToFitWidth = true
         username.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class ReviewView: UIView {
         }
 
         rating.text = String(value)
-        rating.font = UIFont.systemFont(ofSize: ReviewViewConstants.fontSize)
+        rating.font = UIFont(name: "Roboto-Regular", size: ReviewViewConstants.fontSize)
         rating.textColor = .black
         rating.layer.cornerRadius = ReviewViewConstants.radius
         rating.clipsToBounds = true
@@ -83,7 +83,7 @@ class ReviewView: UIView {
         self.addSubview(comment)
 
         comment.text = text
-        comment.font = UIFont.systemFont(ofSize: ReviewViewConstants.smallFontSize)
+        comment.font = UIFont(name: "Roboto-Regular", size: ReviewViewConstants.smallFontSize)
         comment.textColor = UIColor.black
         comment.adjustsFontSizeToFitWidth = true
         comment.translatesAutoresizingMaskIntoConstraints = false

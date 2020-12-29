@@ -32,7 +32,7 @@ class FilmView: UIView {
         self.addSubview(filmTitle)
 
         filmTitle.text = title
-        filmTitle.font = UIFont.systemFont(ofSize: FilmViewConstants.titleFontSize)
+        filmTitle.font = UIFont(name: "Roboto-Regular", size: FilmViewConstants.titleFontSize)
         filmTitle.textColor = UIColor.black
         filmTitle.adjustsFontSizeToFitWidth = true
         filmTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ class FilmView: UIView {
         self.addSubview(filmDescription)
 
         filmDescription.text = desc
-        filmDescription.font = UIFont.systemFont(ofSize: FilmViewConstants.descFontSize)
+        filmDescription.font = UIFont(name: "Roboto-Regular", size: FilmViewConstants.descFontSize)
         filmDescription.textColor = UIColor.black
         filmDescription.adjustsFontSizeToFitWidth = false
         filmDescription.translatesAutoresizingMaskIntoConstraints = false
