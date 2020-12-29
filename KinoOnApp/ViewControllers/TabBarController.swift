@@ -12,8 +12,8 @@ class TabBarController: UITabBarController {
         return UINavigationController(rootViewController: HomeViewController())
     }()
     
-    lazy private var catalogController: CatalogViewController = {
-        return CatalogViewController()
+    lazy private var catalogController: UIViewController = {
+        return UINavigationController(rootViewController: CatalogViewController())
     }()
     
     lazy var profileController: UIViewController = {

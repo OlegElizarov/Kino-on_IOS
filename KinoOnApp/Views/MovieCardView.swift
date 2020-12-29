@@ -7,6 +7,7 @@ class MovieCardView: UICollectionViewCell {
     private let movieImageView = UIImageView()
     private let ageLimitLabel = UILabel()
     private let movieNameLabel = UILabel()
+    private var tapRecognizer: UIGestureRecognizer!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

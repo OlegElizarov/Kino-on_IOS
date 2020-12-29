@@ -133,9 +133,10 @@ class CatalogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Каталог"
         view.backgroundColor = .white
         
-        setupHeader()
+//        setupHeader()
         setupSegmentControl()
         setupFilters()
         setupMoviesCollectionView()
@@ -165,7 +166,7 @@ class CatalogViewController: UIViewController {
         segmentedControlContainerView.addSubview(bottomUnderlineView)
 
         NSLayoutConstraint.activate([
-            segmentedControlContainerView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor),
+            segmentedControlContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             segmentedControlContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             segmentedControlContainerView.widthAnchor.constraint(equalTo: view.widthAnchor),
             segmentedControlContainerView.heightAnchor.constraint(equalToConstant: CatalogViewControllerConstants.segmentControlHeight)
@@ -279,8 +280,18 @@ class CatalogViewController: UIViewController {
 //    }
     
     @objc
-    private func tapDetected() {
-        self.navigationController?.pushViewController(FilmViewController(filmId: 2), animated: true)
+    private func tapDetected(sender: UITapGestureRecognizer) {
+        if let movieCard = sender.view as? MovieCardView {
+            print("yes")
+            self.navigationController?.pushViewController(FilmViewController(filmId: movieCard.getId()), animated: true)
+//            let tapLocation = sender.location(in: movieCollection)
+//            if let tapIndexPath = movieCollection.indexPathForItem(at: tapLocation),
+//               let tappedCell = movieCollection.cellForItem(at: tapIndexPath) {
+//                if let movieCard = tappedCell as? MovieCardView {
+//                    self.navigationController?.pushViewController(FilmViewController(filmId: movieCard.getId()), animated: true)
+//                }
+//            }
+        }
     }
 }
 
@@ -301,11 +312,12 @@ extension CatalogViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let singleTap = UITapGestureRecognizer(target: cell, action: #selector(tapDetected))
-        cell.isUserInteractionEnabled = true
-        cell.addGestureRecognizer(singleTap)
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+        singleTap.cancelsTouchesInView = false
         
         cell.fillCell(model: self.movies[indexPath.item])
+        cell.isUserInteractionEnabled = true
+        cell.addGestureRecognizer(singleTap)
         return cell
     }
 }

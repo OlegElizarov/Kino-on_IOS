@@ -47,7 +47,7 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate & UI
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.usernameLabel!)
         usernameLabel.backgroundColor = .white
-        usernameLabel.font = UIFont(name: "Zapfino", size: 25)
+        usernameLabel.font = UIFont(name: "Montserrat-Medium", size: 26)
         usernameLabel.textAlignment = NSTextAlignment.center
         usernameLabel.topAnchor.constraint(equalTo: userLable.topAnchor, constant: 250).isActive = true
         
@@ -99,9 +99,11 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate & UI
     private func configureInputs() {
         loginInputField = InputField(text: "")
         loginInputField.text = userData.username
+        loginInputField.font = UIFont(name: "Montserrat-Medium", size: 16)
         
         emailInputField = InputField(text: "")
         emailInputField.text = userData.email
+        emailInputField.font = UIFont(name: "Montserrat-Medium", size: 16)
         
         loginInputField.translatesAutoresizingMaskIntoConstraints = false
         emailInputField.translatesAutoresizingMaskIntoConstraints = false
