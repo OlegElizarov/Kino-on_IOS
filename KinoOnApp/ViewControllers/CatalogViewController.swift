@@ -38,9 +38,26 @@ let filterButtons = [
 
 class CatalogViewController: UIViewController {
     
+    private var movies: [MovieCard] = []
+    
+    lazy private var listView: UICollectionView = {
+        let collView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+
+        collView.alwaysBounceHorizontal = true
+        collView.translatesAutoresizingMaskIntoConstraints = false
+        collView.delegate = self
+        collView.dataSource = self
+        collView.isPagingEnabled = true
+        collView.register(MovieCard.self, forCellWithReuseIdentifier: "MovieCard")
+
+        return collView
+    }()
+    
     private var filters: Filters = Filters(genre: [], year: [], order: [])
     private var currentTab = ContentType.Movies
     private var chosenFilters: ChosenFilters = ChosenFilters(genre: 0, year: 0, order: 0)
+    
+    private var currentPage: Int = 1
     
     private let headlineLabel = UILabel()
     
@@ -101,6 +118,19 @@ class CatalogViewController: UIViewController {
         return bottomUnderlineView.leftAnchor.constraint(equalTo: segmentedControl.leftAnchor)
     }()
     
+    lazy private var moviesCollectionView: UICollectionView = {
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        
+        collection.delegate = self
+        collection.dataSource = self
+        
+        collection.register(MovieCardView.self, forCellWithReuseIdentifier: "MovieCard")
+        
+        collection.backgroundColor = .clear
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        return collection
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -108,6 +138,8 @@ class CatalogViewController: UIViewController {
         setupHeader()
         setupSegmentControl()
         setupFilters()
+        setupMoviesCollectionView()
+        setupList()
     }
     
     func setupHeader() {
@@ -156,6 +188,17 @@ class CatalogViewController: UIViewController {
     }
 
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        if (currentTab == ContentType.Movies) {
+            self.currentTab = ContentType.Series
+        } else {
+            self.currentTab = ContentType.Movies
+        }
+        
+        moviesCollectionView.contentOffset = CGPoint(x: 0, y: 0)
+        self.currentPage = 1
+        self.movies = []
+        moviesCollectionView.reloadData()
+        setupList()
         changeSegmentedControlLinePosition()
     }
 
@@ -185,6 +228,37 @@ class CatalogViewController: UIViewController {
         }
     }
     
+    func setupMoviesCollectionView() {
+        view.addSubview(moviesCollectionView)
+        
+        NSLayoutConstraint.activate([
+            moviesCollectionView.topAnchor.constraint(equalTo: self.segmentedControlContainerView.bottomAnchor),
+            moviesCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            moviesCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            moviesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: LayoutConstants.paddingBetweenBlocks, left: LayoutConstants.sidePadding, bottom: 20, right: LayoutConstants.sidePadding)
+        layout.itemSize = CGSize(width: 162, height: 255)
+        moviesCollectionView.setCollectionViewLayout(layout, animated: false)
+    }
+    
+    func setupList() {
+        MovieCollectionRepository().getMovies(type: self.currentTab, page: self.currentPage) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let movies):
+                    self.movies.append(contentsOf: movies[0...movies.count - 2])
+                    self.moviesCollectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
     func setFilter(filterType: FilterType, value: Int) {
         switch filterType {
         case FilterType.Genre:
@@ -203,4 +277,35 @@ class CatalogViewController: UIViewController {
 //            view.addSubview(filterButton)
 //        }
 //    }
+    
+    @objc
+    private func tapDetected() {
+        self.navigationController?.pushViewController(FilmViewController(filmId: 2), animated: true)
+    }
+}
+
+extension CatalogViewController: UICollectionViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.currentPage += 1
+        self.setupList()
+    }
+}
+
+extension CatalogViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCard", for: indexPath) as? MovieCardView else {
+            return UICollectionViewCell()
+        }
+        
+        let singleTap = UITapGestureRecognizer(target: cell, action: #selector(tapDetected))
+        cell.isUserInteractionEnabled = true
+        cell.addGestureRecognizer(singleTap)
+        
+        cell.fillCell(model: self.movies[indexPath.item])
+        return cell
+    }
 }

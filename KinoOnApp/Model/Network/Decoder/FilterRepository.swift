@@ -2,14 +2,15 @@ import Foundation
 
 class FilterRepository {
     private let network = Network()
+    private let hostUrl = "http://64.225.100.179:8080"
     
-    func getFilters(type: ContentType ,completion: @escaping (Result<Filters, Error>) -> Void) {
+    func getFilters(type: ContentType, completion: @escaping (Result<Filters, Error>) -> Void) {
         var urlPrefix = "series"
         if (type == ContentType.Movies) {
             urlPrefix = "films"
         }
         
-        network.doGet(url: "\(urlPrefix)/filter") {(result) in
+        network.doGet(url: "\(hostUrl)/\(urlPrefix)/filter") {(result) in
             switch result {
             case .success(let data):
                 do {

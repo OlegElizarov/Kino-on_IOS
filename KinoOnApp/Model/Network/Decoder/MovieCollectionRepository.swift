@@ -64,4 +64,44 @@ class MovieCollectionRepository {
             })
         }
     }
+    
+    func getMovies(type: ContentType, genre: String = "ALL", year: String = "ALL", order: String = "rating", page: Int, completion: @escaping (Result <[MovieCard], Error>) -> Void) {
+        var urlPrefix = "series"
+        if (type == ContentType.Movies) {
+            urlPrefix = "films"
+        }
+        
+        network.doGet(url: "http://64.225.100.179:8080/\(urlPrefix)?genre=\(genre)&order=\(order)&year=\(year)&page=\(page)") { (result) in
+            switch result {
+            case .success(let data):
+                do {
+                    let list = try self.decodeList(data: data)
+                    completion(.success(list))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func decodeList(data: Data) throws -> [MovieCard] {
+        let decoder = JSONDecoder()
+        let responseBody = try decoder.decode(ResponseBody<[MovieCardJson]>.self, from: data)
+        var result: [MovieCard] = []
+        
+        for movie in responseBody.body {
+            let card = MovieCard()
+
+            card.id = movie.id
+            card.name = movie.name
+            card.ageLimit = movie.ageLimit
+            downloadImage(url: movie.image, card: card)
+            
+            result.append(card)
+        }
+        
+        return result
+    }
 }
