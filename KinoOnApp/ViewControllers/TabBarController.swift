@@ -38,6 +38,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .white
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)], for: .selected)
+        UIBarButtonItem.appearance().tintColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
 
         let homeTab = UITabBarItem(title: "Home",
                 image: UIImage(systemName: "house")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
