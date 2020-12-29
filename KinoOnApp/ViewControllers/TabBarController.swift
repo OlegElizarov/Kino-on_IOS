@@ -40,17 +40,17 @@ class TabBarController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)], for: .selected)
         UIBarButtonItem.appearance().tintColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
 
-        let homeTab = UITabBarItem(title: "Home",
+        let homeTab = UITabBarItem(title: "Главная",
                 image: UIImage(systemName: "house")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
                         renderingMode: .alwaysOriginal), tag: 0)
         self.homeController.tabBarItem = homeTab
 
-        let catalogTab = UITabBarItem(title: "Catalog",
+        let catalogTab = UITabBarItem(title: "Каталог",
                 image: UIImage(systemName: "magnifyingglass")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
                         renderingMode: .alwaysOriginal), tag: 1)
         self.catalogController.tabBarItem = catalogTab
 
-        let profileTab = UITabBarItem(title: "Profile",
+        let profileTab = UITabBarItem(title: "Профиль",
                 image: UIImage(systemName: "person")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
                         renderingMode: .alwaysOriginal), tag: 2)
 
@@ -73,7 +73,7 @@ class TabBarController: UITabBarController {
         nav.isNavigationBarHidden = true
 
         profileController = nav
-        let profileTab = UITabBarItem(title: "Profile",
+        let profileTab = UITabBarItem(title: "Профиль",
                 image: UIImage(systemName: "person")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
                         renderingMode: .alwaysOriginal), tag: 2)
         self.profileController.tabBarItem = profileTab
