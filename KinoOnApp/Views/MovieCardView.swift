@@ -44,7 +44,7 @@ class MovieCardView: UICollectionViewCell {
     }
     
     func setupAgeLimit() {
-        ageLimitLabel.font = UIFont.systemFont(ofSize: 11)
+        ageLimitLabel.font = UIFont(name: "Roboto-Regular", size: 11)
         ageLimitLabel.textColor = .white
         ageLimitLabel.textAlignment = NSTextAlignment.center
         
@@ -65,7 +65,7 @@ class MovieCardView: UICollectionViewCell {
     }
     
     func setupMovieName() {
-        movieNameLabel.font = UIFont.systemFont(ofSize: 12)
+        movieNameLabel.font = UIFont(name: "OpenSans-Regular", size: 12)
         movieNameLabel.adjustsFontSizeToFitWidth = false
         movieNameLabel.lineBreakMode = .byTruncatingTail
         

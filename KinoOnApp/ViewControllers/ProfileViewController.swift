@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Профиль"
         self.view.backgroundColor = .white
         modalTransitionStyle = .flipHorizontal
         configureLabel()
@@ -169,6 +170,7 @@ class ProfileViewController: UIViewController {
     
     private func configureLabel() {
         profileLabel = ProfileLable(text: "Аккаунт")
+        profileLabel.font = UIFont(name: "Montserrat-Bold", size: 24)
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self.profileLabel!)
         
@@ -181,6 +183,8 @@ class ProfileViewController: UIViewController {
     private func configureTypePage() {
         loginLabel = PageTypeLable(text: "Войти")
         signUpLabel = PageTypeLable(text: "Создать Аккаунт")
+        loginLabel.font = UIFont(name: "OpenSans-Regular", size: 20)
+        signUpLabel.font = UIFont(name: "OpenSans-Regular", size: 20)
         loginLabel.textColor = #colorLiteral(red: 0.1176470588, green: 0.3137254902, blue: 0.7450980392, alpha: 1)
         
         let tapLogin = UITapGestureRecognizer(target: self, action: #selector(loginState))

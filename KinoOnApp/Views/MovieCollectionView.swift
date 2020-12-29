@@ -43,7 +43,7 @@ class MovieCollectionView: UICollectionViewCell {
     }
     
     func setupHeader() {
-        collectionNameLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        collectionNameLabel.font = UIFont(name: "Montserrat-Bold", size: 24)
         
         collectionNameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(collectionNameLabel)
