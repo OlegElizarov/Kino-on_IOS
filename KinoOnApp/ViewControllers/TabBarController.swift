@@ -41,19 +41,21 @@ class TabBarController: UITabBarController {
         UIBarButtonItem.appearance().tintColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
 
         let homeTab = UITabBarItem(title: "Главная",
-                image: UIImage(systemName: "house")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
-                        renderingMode: .alwaysOriginal), tag: 0)
+                image: UIImage(systemName: "house"), tag: 0)
+        homeTab.selectedImage = UIImage(systemName: "house")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
+                renderingMode: .alwaysOriginal)
         self.homeController.tabBarItem = homeTab
 
         let catalogTab = UITabBarItem(title: "Каталог",
-                image: UIImage(systemName: "magnifyingglass")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
-                        renderingMode: .alwaysOriginal), tag: 1)
+                image: UIImage(systemName: "magnifyingglass"), tag: 1)
+        catalogTab.selectedImage = UIImage(systemName: "magnifyingglass")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
+                renderingMode: .alwaysOriginal)
         self.catalogController.tabBarItem = catalogTab
 
         let profileTab = UITabBarItem(title: "Профиль",
-                image: UIImage(systemName: "person")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
-                        renderingMode: .alwaysOriginal), tag: 2)
-
+                image: UIImage(systemName: "person"), tag: 2)
+        profileTab.selectedImage = UIImage(systemName: "person")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
+                renderingMode: .alwaysOriginal)
         ProfileRepository().getUser { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -74,8 +76,9 @@ class TabBarController: UITabBarController {
 
         profileController = nav
         let profileTab = UITabBarItem(title: "Профиль",
-                image: UIImage(systemName: "person")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
-                        renderingMode: .alwaysOriginal), tag: 2)
+                image: UIImage(systemName: "person"), tag: 2)
+        profileTab.selectedImage = UIImage(systemName: "person")?.withTintColor(#colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1),
+                renderingMode: .alwaysOriginal)
         self.profileController.tabBarItem = profileTab
 
         viewControllers = [homeController, catalogController, profileController]
