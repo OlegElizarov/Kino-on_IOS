@@ -32,20 +32,6 @@ class ProfileViewController: UIViewController {
     }
     
     @objc
-    func toggle(_ sender: UIButton!) {
-        isChecked = !isChecked
-        if isChecked {
-            sender.setTitle("✓", for: .normal)
-            sender.setTitleColor(.green, for: .normal)
-            passwordField.isSecureTextEntry.toggle()
-        } else {
-            sender.setTitle("X", for: .normal)
-            sender.setTitleColor(.red, for: .normal)
-            passwordField.isSecureTextEntry.toggle()
-        }
-    }
-    
-    @objc
     func loginButtonAction(sender: UIButton!) {
         switch state {
         case .login:
@@ -86,24 +72,34 @@ class ProfileViewController: UIViewController {
             return
             
         case .signup:
-            ProfileRepository().logout {(result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data):
-                        print(data)
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            }
+            
             if passwordField.text != repPasswordField.text {
                 hello.text = "Passwords do not match!"
                 return
             }
             if loginField.text == testUser.email {
-                hello.text = "User alredy exists"
+                hello.text = "Already login"
             } else {
-                hello.text = "Meet our new friend => mister \(loginField.text!) !"
+                ProfileRepository().signup(username: loginField.text!,
+                                           email: loginField.text!+"@list.ru",
+                                           password: passwordField.text!) {(result) in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let data):
+                            print(data)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+                UserDatabase().saveUserData(user: User(id: 0, username: loginField.text!,
+                                                       email: loginField.text!+"@list.ru",
+                                                       password: passwordField.text!, image: ""))
+                let controller = UserViewController()
+                self.navigationController!.pushViewController(controller, animated: true)
+                let newController = UserViewController()
+                newController.parentController = self.parentController
+                self.parentController.changeItemController(newController: newController)
             }
             return
             

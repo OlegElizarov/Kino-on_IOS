@@ -45,7 +45,8 @@ class ToggleButton: UIButton {
 
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
-        self.setTitleColor(.red, for: .normal)
+        self.titleLabel?.font = self.titleLabel?.font.withSize(30.0)
+//        self.setTitleColor(.red, for: .normal)
         self.addTarget(self, action: #selector(self.toggle), for: .touchUpInside)
     }
     
@@ -60,11 +61,15 @@ class ToggleButton: UIButton {
     func toggle(_ sender: UIButton!) {
         isChecked = !isChecked
         if isChecked {
-            sender.setTitle("✓", for: .normal)
-            sender.setTitleColor(.green, for: .normal)
+//            sender.setTitle("✓", for: .normal)
+            sender.setTitle("🙉", for: .normal)
+
+//            sender.setTitleColor(.green, for: .normal)
         } else {
-            sender.setTitle("X", for: .normal)
-            sender.setTitleColor(.red, for: .normal)
+//            sender.setTitle("X", for: .normal)
+            sender.setTitle("🙈", for: .normal)
+
+//            sender.setTitleColor(.red, for: .normal)
         }
         self.callback(isChecked)
     }
@@ -86,7 +91,7 @@ class InputField: UITextField {
         case .authorize:
             self.isSecureTextEntry = true
             self.rightViewMode = .always
-            let toggleButton = ToggleButton(title: "X", callback: setVisibility(isVisible:))
+            let toggleButton = ToggleButton(title: "🙈", callback: setVisibility(isVisible:))
             self.rightView = toggleButton
             // прибивка направо
         case .settings:
