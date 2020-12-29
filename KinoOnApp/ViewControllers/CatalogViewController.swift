@@ -196,11 +196,11 @@ class CatalogViewController: UIViewController {
         }
     }
     
-    func setupFilterButtons() {
-        for (index, filterButton) in filterButtons.enumerated() {
-            filterButton.fillCell(value: filters[chosenFilters[filterButtons[index]]].name)
-            filterButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(filterButton)
-        }
-    }
+//    func setupFilterButtons() {
+//        for (index, filterButton) in filterButtons.enumerated() {
+//            filterButton.fillCell(value: filters[chosenFilters[filterButtons[index]]].name)
+//            filterButton.translatesAutoresizingMaskIntoConstraints = false
+//            view.addSubview(filterButton)
+//        }
+//    }
 }
