@@ -151,7 +151,7 @@ class FilmViewController: UIViewController {
         self.scrollView.addSubview(trailerButton)
 
         trailerButton.setTitle("Посмотреть трейлер", for: .normal)
-        trailerButton.backgroundColor = .systemBlue
+        trailerButton.backgroundColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
         trailerButton.layer.cornerRadius = FilmViewControllerConstants.radius
 
         trailerButton.addTarget(self, action: #selector(tapDetected), for: .touchUpInside)
@@ -228,7 +228,7 @@ class FilmViewController: UIViewController {
     private func setUpInputButton() {
         self.view.addSubview(inputButton)
 
-        inputButton.backgroundColor = .systemBlue
+        inputButton.backgroundColor = #colorLiteral(red: 0.05882352941, green: 0.2980392157, blue: 0.5058823529, alpha: 1)
         let img = UIImage(systemName: "arrow.up")?.withTintColor(.white, renderingMode: .alwaysOriginal)
 
         inputButton.setImage(img, for: .normal)
