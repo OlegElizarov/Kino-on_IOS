@@ -246,10 +246,10 @@ class FilmViewController: UIViewController {
 
     @objc
     private func tapDetected() {
-        guard let appUrl = URL(string: "youtube://youtube.com/\(self.trailerUrl)") else {
+        guard let appUrl = URL(string: "youtube://youtube.com/watch?v=\(self.trailerUrl)") else {
             return
         }
-        guard let webUrl = URL(string: "https://youtube.com/\(self.trailerUrl)") else {
+        guard let webUrl = URL(string: "https://youtube.com/watch?v=\(self.trailerUrl)") else {
             return
         }
 
